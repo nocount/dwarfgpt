@@ -1,0 +1,162 @@
+{
+  "_meta": {
+    "purpose": "20-sentence gold-standard set for Phase 0 of the bilingual nanochat plan. Each entry should be typed into DS-NKh-Sentence Maker.xlsm verbatim, and the Excel's FINAL!B1:B5 output transcribed into the `excel_*` fields. The Python module is scored against the Excel-recorded values by `scripts/score_gold_set.py`. Pass criterion: ≥80% lexical accuracy on the populated entries.",
+    "verification_workflow": [
+      "1. Open sentence_maker_original_v1.xlsm in Excel (enable macros).",
+      "2. For each entry below: paste `english_input` verbatim into CONSTRUCT!H2.",
+      "3. Click the FINAL4 macro button so FINAL!B1:B5 populates.",
+      "4. Copy FINAL!B1..B5 into excel_english, excel_khuzdul, excel_phonetic, excel_moria, excel_erebor.",
+      "5. Set verified to true. Save.",
+      "6. Run `python scripts/score_gold_set.py` to score."
+    ],
+    "scoring": "scripts/score_gold_set.py reports per-entry accuracy. Strings are NFC-normalized and stripped of surrounding whitespace; everything else must match character-for-character.",
+    "python_module_predictions": "The python_* fields below are what khuzdul_translator currently produces — they're shown as a sanity check, not as ground truth. The Excel run determines the truth.",
+    "selection_principles": [
+      "Each entry's english_input is the bracket-stripped dictionary key (column C in the workbook), so lookup is guaranteed.",
+      "Mix singular / plural / construct-state / verbal noun forms.",
+      "Cover digraphs (kh, sh), end-shwa, mid-shwa, caret, gemination, glottal-stop initials, hyphen-bounded affix forms."
+    ]
+  },
+  "entries": [
+    {
+      "id": 1, "english_input": "dwarves",
+      "notes": "Canonical plural; caret skipped because of Plural tag.",
+      "python_khuzdul": "khazâd", "python_phonetic": "[kʰɑzɑ:d]",
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 2, "english_input": "dwarf",
+      "notes": "Two alternatives; first hit by row order should be akhzud.",
+      "python_khuzdul": "akhzud", "python_phonetic": "[ɑkʰzʊd]",
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 3, "english_input": "mountain",
+      "notes": "'abad — apostrophe = glottal stop AM001.",
+      "python_khuzdul": "'abad", "python_phonetic": "[ʔɑbɑd]",
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 4, "english_input": "beard",
+      "notes": "targ — word-final rg is permissible (no end-shwa rule).",
+      "python_khuzdul": "targ", "python_phonetic": "[tɑrɡ]",
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 5, "english_input": "accusation",
+      "notes": "End-shwa: kr] -> kər] fires.",
+      "python_khuzdul": "hakr", "python_phonetic": "[hɑkər]",
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 6, "english_input": "ale (amber / pale ale)",
+      "notes": "Multi-word key; end-shwa on ll].",
+      "python_khuzdul": "zall", "python_phonetic": "[zɑləl]",
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 7, "english_input": "king (commander) (non-person-form)",
+      "notes": "azbad — common noun.",
+      "python_khuzdul": "azbad", "python_phonetic": null,
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 8, "english_input": "gold (metal)",
+      "notes": "biriz — exercises i-vowel.",
+      "python_khuzdul": "biriz", "python_phonetic": null,
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 9, "english_input": "silver (metal piece)",
+      "notes": "kibil.",
+      "python_khuzdul": "kibil", "python_phonetic": null,
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 10, "english_input": "sword",
+      "notes": "zagr — end cluster gr.",
+      "python_khuzdul": "zagr", "python_phonetic": null,
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 11, "english_input": "axe",
+      "notes": "bark — end cluster rk.",
+      "python_khuzdul": "bark", "python_phonetic": null,
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 12, "english_input": "fire",
+      "notes": "'urs — apostrophe initial, rs cluster.",
+      "python_khuzdul": "'urs", "python_phonetic": null,
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 13, "english_input": "water",
+      "notes": "shâlak — sh digraph + â long vowel.",
+      "python_khuzdul": "shâlak", "python_phonetic": null,
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 14, "english_input": "horse (steed)",
+      "notes": "khurb — kh digraph + rb cluster.",
+      "python_khuzdul": "khurb", "python_phonetic": null,
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 15, "english_input": "iron",
+      "notes": "zirin — i+i sequence.",
+      "python_khuzdul": "zirin", "python_phonetic": null,
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 16, "english_input": "stone",
+      "notes": "'aban — glottal initial.",
+      "python_khuzdul": "'aban", "python_phonetic": null,
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 17, "english_input": "abdicating (the act of)",
+      "notes": "inkhêrik — gerund form with caret long-vowel ê.",
+      "python_khuzdul": "inkhêrik", "python_phonetic": null,
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 18, "english_input": "abdicate!",
+      "notes": "Imperative; multiple alternatives — first hit wins.",
+      "python_khuzdul": "inkhirikî", "python_phonetic": null,
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 19, "english_input": "deep",
+      "notes": "buzrâ — adjective; end-â (long vowel).",
+      "python_khuzdul": "buzrâ", "python_phonetic": null,
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    },
+    {
+      "id": 20, "english_input": "ear",
+      "notes": "habr — end-shwa on br] fires.",
+      "python_khuzdul": "habr", "python_phonetic": "[hɑbər]",
+      "verified": false, "excel_english": null, "excel_khuzdul": null,
+      "excel_phonetic": null, "excel_moria": null, "excel_erebor": null
+    }
+  ]
+}

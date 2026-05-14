@@ -1,0 +1,130 @@
+[
+  {
+    "first_am": "AM038",
+    "second_am": "AM014",
+    "result_am": "AM039",
+    "first_latin": "t",
+    "second_latin": "h",
+    "result_latin": "th"
+  },
+  {
+    "first_am": "AM038",
+    "second_am": "AM036",
+    "result_am": "AM040",
+    "first_latin": "t",
+    "second_latin": "s",
+    "result_latin": "ts"
+  },
+  {
+    "first_am": "AM048",
+    "second_am": "AM014",
+    "result_am": "AM049",
+    "first_latin": "z",
+    "second_latin": "h",
+    "result_latin": "zh"
+  },
+  {
+    "first_am": "AM052",
+    "second_am": "AM014",
+    "result_am": "AM005",
+    "first_latin": "c",
+    "second_latin": "h",
+    "result_latin": "ch"
+  },
+  {
+    "first_am": "AM006",
+    "second_am": "AM014",
+    "result_am": "AM007",
+    "first_latin": "d",
+    "second_latin": "h",
+    "result_latin": "dh"
+  },
+  {
+    "first_am": "AM012",
+    "second_am": "AM014",
+    "result_am": "AM013",
+    "first_latin": "g",
+    "second_latin": "h",
+    "result_latin": "gh"
+  },
+  {
+    "first_am": "AM014",
+    "second_am": "AM046",
+    "result_am": "AM015",
+    "first_latin": "h",
+    "second_latin": "w",
+    "result_latin": "hw"
+  },
+  {
+    "first_am": "AM014",
+    "second_am": "AM047",
+    "result_am": "AM016",
+    "first_latin": "h",
+    "second_latin": "y",
+    "result_latin": "hy"
+  },
+  {
+    "first_am": "AM020",
+    "second_am": "AM014",
+    "result_am": "AM021",
+    "first_latin": "k",
+    "second_latin": "h",
+    "result_latin": "kh"
+  },
+  {
+    "first_am": "AM022",
+    "second_am": "AM014",
+    "result_am": "AM023",
+    "first_latin": "l",
+    "second_latin": "h",
+    "result_latin": "lh"
+  },
+  {
+    "first_am": "AM025",
+    "second_am": "AM006",
+    "result_am": "AM026",
+    "first_latin": "n",
+    "second_latin": "d",
+    "result_latin": "nd"
+  },
+  {
+    "first_am": "AM025",
+    "second_am": "AM012",
+    "result_am": "AM027",
+    "first_latin": "n",
+    "second_latin": "g",
+    "result_latin": "ng"
+  },
+  {
+    "first_am": "AM025",
+    "second_am": "AM019",
+    "result_am": "AM028",
+    "first_latin": "n",
+    "second_latin": "j",
+    "result_latin": "nj"
+  },
+  {
+    "first_am": "AM033",
+    "second_am": "AM036",
+    "result_am": "AM034",
+    "first_latin": "p",
+    "second_latin": "s",
+    "result_latin": "ps"
+  },
+  {
+    "first_am": "AM036",
+    "second_am": "AM014",
+    "result_am": "AM037",
+    "first_latin": "s",
+    "second_latin": "h",
+    "result_latin": "sh"
+  },
+  {
+    "first_am": "AM020",
+    "second_am": "AM036",
+    "result_am": "AM053",
+    "first_latin": "k",
+    "second_latin": "s",
+    "result_latin": "ks"
+  }
+]
