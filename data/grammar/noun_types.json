@@ -1,0 +1,431 @@
+[
+  {
+    "type_id": "1",
+    "label": "Incarnates",
+    "description": "Incarnates",
+    "tri_radical": {
+      "pattern": "CuCC",
+      "example": "khuzd"
+    },
+    "bi_radical": {
+      "pattern": "CaiC",
+      "example": "daig"
+    },
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "2",
+    "label": "inanimate objects / actions taken by the body",
+    "description": "related to inanimate objects / actions taken by the body",
+    "tri_radical": {
+      "pattern": "CaCC",
+      "example": "bark"
+    },
+    "bi_radical": {
+      "pattern": "CaiCu",
+      "example": "kaiku"
+    },
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "3",
+    "label": "mass of water",
+    "description": "related to mass of water",
+    "tri_radical": {
+      "pattern": "CâCaC",
+      "example": "zâram"
+    },
+    "bi_radical": {
+      "pattern": "CâC",
+      "example": "'ân"
+    },
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "4",
+    "label": "a greater area",
+    "description": "related to a greater area",
+    "tri_radical": {
+      "pattern": "CuCCu",
+      "example": "gundu"
+    },
+    "bi_radical": {
+      "pattern": "CuC",
+      "example": "dum"
+    },
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "5",
+    "label": "shape or form",
+    "description": "related to shape or form",
+    "tri_radical": {
+      "pattern": "iCCaC",
+      "example": "inbar"
+    },
+    "bi_radical": {
+      "pattern": "iCaC",
+      "example": "inab"
+    },
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "6",
+    "label": "fabrics / non-metal material types",
+    "description": "related to fabrics / non-metal material types",
+    "tri_radical": {
+      "pattern": "CeCeC",
+      "example": "kheled"
+    },
+    "bi_radical": null,
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "7",
+    "label": "metal types and gems",
+    "description": "metal types and gems",
+    "tri_radical": {
+      "pattern": "CiCiC",
+      "example": "kibil"
+    },
+    "bi_radical": {
+      "pattern": "iCiC",
+      "example": "ikik"
+    },
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "8",
+    "label": "the home and the environment around the home",
+    "description": "related to the home and the environment around the home",
+    "tri_radical": {
+      "pattern": "CaCaC",
+      "example": "zahar"
+    },
+    "bi_radical": {
+      "pattern": "CâCa",
+      "example": "nâla"
+    },
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "9",
+    "label": "height / rank",
+    "description": "related to height / rank",
+    "tri_radical": {
+      "pattern": "CiCaC",
+      "example": "zirak"
+    },
+    "bi_radical": {
+      "pattern": "CiC",
+      "example": "nikh"
+    },
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "10",
+    "label": "action / abstraction",
+    "description": "related to action / abstraction",
+    "tri_radical": {
+      "pattern": "aCCâC",
+      "example": "aglâb"
+    },
+    "bi_radical": {
+      "pattern": "aCaC",
+      "example": "adal"
+    },
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "11",
+    "label": "hand tools or instruments",
+    "description": "related to hand tools or instruments",
+    "tri_radical": {
+      "pattern": "CeCaC",
+      "example": "felak"
+    },
+    "bi_radical": {
+      "pattern": "eCaC",
+      "example": "enab"
+    },
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "11b",
+    "label": "devices or construction utilities",
+    "description": "related to devices or construction utilities",
+    "tri_radical": {
+      "pattern": "CeCeC",
+      "example": "zeleg"
+    },
+    "bi_radical": null,
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "12",
+    "label": "Agent (person-form)",
+    "description": "Agent (person-form)",
+    "tri_radical": {
+      "pattern": "uCCaC",
+      "example": "uzbad"
+    },
+    "bi_radical": {
+      "pattern": "uCaC",
+      "example": "utas"
+    },
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "13",
+    "label": "environmental (weather)",
+    "description": "environmental (weather)",
+    "tri_radical": {
+      "pattern": "CaCC",
+      "example": "shatr"
+    },
+    "bi_radical": {
+      "pattern": "CaC",
+      "example": "shar"
+    },
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "14",
+    "label": "continuous movement",
+    "description": "continuous movement",
+    "tri_radical": {
+      "pattern": "uCCuC",
+      "example": "uslun"
+    },
+    "bi_radical": {
+      "pattern": "CuC",
+      "example": "'ul"
+    },
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "15",
+    "label": "Agent (non-person form)",
+    "description": "Agent (non-person form)",
+    "tri_radical": {
+      "pattern": "aCCaC",
+      "example": "abzag"
+    },
+    "bi_radical": {
+      "pattern": "aCaC",
+      "example": "agal"
+    },
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "16",
+    "label": "MISC 1 (Ereborisms - Type 1)",
+    "description": "MISC 1 (Ereborisms - Type 1)",
+    "tri_radical": {
+      "pattern": "CuCC",
+      "example": "'urd"
+    },
+    "bi_radical": {
+      "pattern": "iCC",
+      "example": "imn"
+    },
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "17",
+    "label": "MISC 2 (Ereborisms - Type 2)",
+    "description": "MISC 2 (Ereborisms - Type 2)",
+    "tri_radical": {
+      "pattern": "CaCCô",
+      "example": "bannô"
+    },
+    "bi_radical": null,
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "18",
+    "label": "MISC 3 (Orocarnism - Type 1)",
+    "description": "MISC 3 (Orocarnism - Type 1)",
+    "tri_radical": {
+      "pattern": "CuCaC",
+      "example": "duban"
+    },
+    "bi_radical": null,
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "19",
+    "label": "MISC 4 (Orocarnism - Type 2)",
+    "description": "MISC 4 (Orocarnism - Type 2)",
+    "tri_radical": {
+      "pattern": "CûCuC",
+      "example": "nûlukh"
+    },
+    "bi_radical": {
+      "pattern": "CuC",
+      "example": "nud"
+    },
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "20",
+    "label": "MISC 5 (Orocarnism - Type 3)",
+    "description": "MISC 5 (Orocarnism - Type 3)",
+    "tri_radical": {
+      "pattern": "CûCîC",
+      "example": "rûrîk"
+    },
+    "bi_radical": null,
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "21",
+    "label": "MISC 6 (Eredmithrinism - Type 1)",
+    "description": "MISC 6 (Eredmithrinism - Type 1)",
+    "tri_radical": {
+      "pattern": "CoCiC",
+      "example": "lomil"
+    },
+    "bi_radical": null,
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "22",
+    "label": "MISC 7 (Occidentalism - Type 1)",
+    "description": "MISC 7 (Occidentalism - Type 1)",
+    "tri_radical": {
+      "pattern": "CuCuC",
+      "example": "durug"
+    },
+    "bi_radical": {
+      "pattern": "CuC",
+      "example": "hul"
+    },
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "23",
+    "label": "MISC 8 (Occidentalism - Type 2)",
+    "description": "MISC 8 (Occidentalism - Type 2)",
+    "tri_radical": {
+      "pattern": "CaCoC",
+      "example": "gathol"
+    },
+    "bi_radical": null,
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "24",
+    "label": "MISC 9 (From Ancient/Unknown Origins)",
+    "description": "MISC 9 (From Ancient/Unknown Origins)",
+    "tri_radical": {
+      "pattern": "CâCiC",
+      "example": "kâmin"
+    },
+    "bi_radical": null,
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "25",
+    "label": "MISC 10 (Quenyanism)",
+    "description": "MISC 10 (Quenyanism)",
+    "tri_radical": {
+      "pattern": "uCCuC",
+      "example": "uslukh"
+    },
+    "bi_radical": null,
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  },
+  {
+    "type_id": "26",
+    "label": "MISC 11 (Eredmithrinism - Type 2, commonly related to animals)",
+    "description": "MISC 11 (Eredmithrinism - Type 2, commonly related to animals)",
+    "tri_radical": {
+      "pattern": "CoCoC",
+      "example": "kobor"
+    },
+    "bi_radical": null,
+    "source": {
+      "pdf": "The Dwarrow Scholar - Neo-Khuzdul Support Documents N-04 - Noun Types.pdf",
+      "page": 1
+    }
+  }
+]

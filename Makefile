@@ -3,7 +3,7 @@
 # Most targets shell out to `uv run` so they work in a fresh checkout without
 # needing a manually-activated venv.
 
-.PHONY: help install test score extract clean
+.PHONY: help install test score extract headwords clean
 
 help:
 	@echo "Targets:"
@@ -11,6 +11,7 @@ help:
 	@echo "  test         run the khuzdul_translator unit + smoke tests"
 	@echo "  score        score khuzdul_translator against the gold set (requires verified entries)"
 	@echo "  extract      regenerate data/*.json from the .xlsm (slow, ~3 minutes)"
+	@echo "  headwords    rebuild data/headwords.json from data/dictionary.json"
 	@echo "  clean        remove caches and the .venv"
 
 install:
@@ -24,6 +25,9 @@ score:
 
 extract:
 	uv run python scripts/extract_tables.py
+
+headwords:
+	uv run python scripts/build_headwords.py
 
 clean:
 	rm -rf .venv .pytest_cache __pycache__ khuzdul_translator/__pycache__

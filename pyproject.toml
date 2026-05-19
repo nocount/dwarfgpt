@@ -3,8 +3,11 @@ name = "dwarfgpt"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
+    "beautifulsoup4>=4.12",
+    "httpx>=0.27",
     "oletools>=0.60.2",
     "openpyxl>=3.1.5",
+    "pdfplumber>=0.11",
 ]
 
 [dependency-groups]

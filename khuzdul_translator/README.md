@@ -75,8 +75,43 @@ All runtime data lives at `<project_root>/data/`, extracted from the original
 | `phonemes.json` | `Phonetics and Cirth!A3:P55` (+ row 56) | 53 phonemes |
 | `digraphs.json` | parsed from `Converter!CK6` formula | 16 digraphs |
 | `phonological_rules.json` | `Shwa-Caret-Gemination` columns A/B, J/K, CC/CD, CH/CI | 95 + 1,710 + 12 + 18 rules |
+| `headwords.json` | derived from `dictionary.json` by `scripts/build_headwords.py` | 798 radical buckets + 214 irregular + 2,278 untagged |
 
-To regenerate after pulling a new workbook version, run `make extract`.
+To regenerate after pulling a new workbook version, run `make extract` and
+then `make headwords` to refresh the root-keyed view.
+
+### Root-keyed view (Phase 1)
+
+`headwords.json` re-groups the 215K flat rows under their triconsonantal
+radical and decomposes each row's bracket-tag into structured features
+(`category`, `voice`, `aspect_or_form`, `person`, `number`, `gender`, `state`,
+`pattern`, `form_type`, `register`, `mood`). Consume it via the package's
+`headwords` module:
+
+```python
+from khuzdul_translator import headwords
+
+bucket = headwords.by_radical("KhZD")        # 219 inflected forms
+bucket.consonants                            # ('Kh', 'Z', 'D')
+
+# Get the Causative-Imperfect 1st-singular form
+forms = headwords.query(
+    "KhZD",
+    category="VERB",
+    voice="Causative",
+    aspect_or_form="Imperfect",
+    person="1st",
+    number="Singular",
+)
+forms[0].khuzdul                             # 'akhzadthi'
+```
+
+This module is the data-side input to Phase 2's morphology-aware translation
+stage. The bracket-tag decomposition recovers most of what the Dwarrow Scholar
+grammar PDFs document, with the exception that explicit CCC verb-pattern
+templates only appear for nouns/derivations/inflections; verbs identify
+themselves by form-name (Causative Imperfect, etc.) without a parenthesized
+pattern. Phase 1 step 3 (grammar PDF parsing) will fill that gap.
 
 ## Validation
 
