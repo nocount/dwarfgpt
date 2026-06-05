@@ -92,6 +92,8 @@ uv run python -m khuzdul_translator --phrase "dwarves"
 
 ## Credits
 
+To all dwarfs everywhere.
+
 The dictionary and phonological / Cirth rule data come from
 [The Dwarrow Scholar](https://thedwarrowscholar.com), creator of the
 *DS-NKh-Sentence Maker* workbook. All Neo-Khuzdul scholarship is his.
