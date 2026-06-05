@@ -22,7 +22,7 @@ def main() -> None:
 
     # 1) Spot-check KhZD bucket.
     kh = radicals.get("KhZD")
-    print(f"\n=== KhZD bucket ({kh['entry_count']} entries) ===")
+    print(f"\n=== KhZD bucket ({len(kh['entries'])} entries) ===")
     print(f"consonants = {kh['consonants']}")
     cats = Counter(e["features"].get("category") for e in kh["entries"])
     print(f"categories within KhZD: {dict(cats.most_common())}")

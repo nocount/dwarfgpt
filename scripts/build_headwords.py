@@ -1,31 +1,48 @@
-"""Derive a headword dictionary from data/dictionary.json.
+"""Derive the root-keyed headword index from data/dictionary.json.
 
-This is Phase 1 step 2: produce data/headwords.json with one entry per
-(radical, broad_POS) pair, plus one entry per radical-less function word.
+This is Phase 1 step 2: produce `data/headwords.json`, the read-side index that
+`khuzdul_translator.headwords` loads. The Excel "Sentence Maker" dictionary
+lists every inflected form of every headword as a separate row; this script
+re-groups those rows under their triconsonantal radical and decomposes each
+row's bracket-tag column into a structured `features` dict.
 
-Schema per headword:
+Output schema (nested, radical-keyed):
+
     {
-        "id": "KhZD-NOUN",              # (radical, POS) join key
-        "root": "KhZD",                 # consonantal radical, or null
-        "part_of_speech": "NOUN",       # broad POS bucket
-        "entry": "khuzd",               # canonical Khuzdul form
-        "gloss": "dwarf",               # English gloss
-        "inflection_class": "CuCC",     # template extracted from canonical tag
-        "plural_form": "khazâd",        # for NOUN/ADJECTIVE; null otherwise
-        "irregular": false,             # any "Irregular" tag in the group?
-        "n_variants": 219,              # how many Excel rows feed this headword
-        "canonical_tag": "...",
+      "meta": {
+        "entry_count":   212455,        # rows in radical buckets
+        "radical_count": 798,           # distinct triconsonantal radicals
+        "irregular_count": 214,
+        "no_radical_count": 2278,
+        "categories": {"VERB": 168812, "NOUN": 26264, ...}
+      },
+      "radicals": {
+        "KhZD": {
+          "consonants": ["Kh", "Z", "D"],
+          "entries": [
+            {
+              "row": 12345,
+              "english": "cause to dwarf",
+              "khuzdul": "akhzadthi",
+              "raw_tag": "Causative Imperfect Form  / 1st person singular",
+              "features": {
+                "category": "VERB", "voice": "Causative",
+                "aspect_or_form": "Imperfect", "person": "1st",
+                "number": "Singular"
+              }
+            },
+            ...
+          ]
+        },
+        ...
+      },
+      "irregular_entries": [ ... ],   # rows whose radical column was "irr."
+      "no_radical_entries": [ ... ]   # rows with no radical at all
     }
 
-Inflected variants are kept in a sidecar at data/headword_variants.json
-keyed by headword id, so headwords.json stays small and easy to scan.
-
-Strategy:
-- broad_POS for verbs collapses Imperfect/Perfect/Causative/Passive/... into
-  a single VERB bucket. The Excel slices them as inflectional variants of
-  the same root.
-- canonical-row selection per POS uses tag-pattern rules (see
-  pick_canonical()).
+`features` is sparse: a key is only present when its value could be derived from
+the tag. `headwords.query()` matches on exact feature values, so absent keys
+simply never match a filter.
 """
 
 from __future__ import annotations
@@ -34,37 +51,38 @@ import io
 import json
 import re
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 SRC = PROJECT_ROOT / "data" / "dictionary.json"
-DEST_HEADWORDS = PROJECT_ROOT / "data" / "headwords.json"
-DEST_VARIANTS = PROJECT_ROOT / "data" / "headword_variants.json"
+DEST = PROJECT_ROOT / "data" / "headwords.json"
 
 
-# Order matters: first match wins. Verb-* categories are folded into VERB
-# downstream; we keep the granular labels here for canonical-row selection.
+# --- Broad part-of-speech classification (the `category` feature) ----------
+#
+# Order matters: first match wins. Verb-* labels are folded into VERB; the
+# granular split lives in the `voice` / `aspect_or_form` features instead.
 POS_RULES: list[tuple[str, str]] = [
     (r"^NOUN TYPE", "NOUN"),
     (r"\bConstruction of Capability\b", "NOUN"),
-    (r"\bGerund\b", "VERB-GERUND"),
-    (r"\bInfinitive\b", "VERB-INFINITIVE"),
-    (r"\bImperfect\b", "VERB-IMPERFECT"),
-    (r"\bPerfect\b", "VERB-PERFECT"),
-    (r"\bCausative\b", "VERB-CAUSATIVE"),
-    (r"\bPassive\b", "VERB-PASSIVE"),
-    (r"\bEnergetic\b", "VERB-ENERGETIC"),
-    (r"\bJussive\b", "VERB-JUSSIVE"),
-    (r"\bInteractive\b", "VERB-INTERACTIVE"),
-    (r"\bImperative\b", "VERB-IMPERATIVE"),
-    (r"\bParticiple\b", "VERB-PARTICIPLE"),
-    (r"\bContinual\b", "VERB-CONTINUAL"),
+    (r"\bGerund\b", "VERB"),
+    (r"\bInfinitive\b", "VERB"),
+    (r"\bImperfect\b", "VERB"),
+    (r"\bPerfect\b", "VERB"),
+    (r"\bCausative\b", "VERB"),
+    (r"\bPassive\b", "VERB"),
+    (r"\bEnergetic\b", "VERB"),
+    (r"\bJussive\b", "VERB"),
+    (r"\bInteractive\b", "VERB"),
+    (r"\bImperative\b", "VERB"),
+    (r"\bParticiple\b", "VERB"),
+    (r"\bContinual\b", "VERB"),
     (r"\bIntimate\b", "DIMINUTIVE"),
     (r"\bDERIVED\b|\bDEFINED\b", "DERIVED"),
-    (r"\bFragmental\b|\bElemental\b", "NOUN-FRAGMENTAL"),
+    (r"\bFragmental\b|\bElemental\b", "NOUN"),
     (r"\bModified Adjective\b", "ADJECTIVE"),
     (r"^ADJECTIVE\b|\bComp(?:e|a)rative\b|\bSuperlative\b", "ADJECTIVE"),
     (r"\bAdverb\b", "ADVERB"),
@@ -78,238 +96,182 @@ POS_RULES: list[tuple[str, str]] = [
 ]
 COMPILED_POS_RULES = [(re.compile(p, re.IGNORECASE), label) for p, label in POS_RULES]
 
-VERB_SUB = {
-    "VERB-INFINITIVE", "VERB-IMPERFECT", "VERB-PERFECT", "VERB-CAUSATIVE",
-    "VERB-PASSIVE", "VERB-ENERGETIC", "VERB-JUSSIVE", "VERB-INTERACTIVE",
-    "VERB-IMPERATIVE", "VERB-PARTICIPLE", "VERB-CONTINUAL", "VERB-GERUND",
-}
 
-# Pattern in parens from tag, e.g. "NOUN TYPE 1 (CuCC) / ..." → "CuCC".
-_PATTERN_RE = re.compile(r"\(([^()]+)\)")
-
-
-def classify_fine(tag: str) -> str:
+def category_of(tag: str) -> str:
     for rx, label in COMPILED_POS_RULES:
         if rx.search(tag):
             return label
     return "OTHER"
 
 
-def broad_pos(fine: str) -> str:
-    if fine in VERB_SUB:
-        return "VERB"
-    if fine == "NOUN-FRAGMENTAL":
-        return "NOUN"
-    return fine
+# --- Fine-grained feature extraction ---------------------------------------
+
+# Pattern template in parens, e.g. "NOUN TYPE 1 (CuCC) / ..." → "CuCC".
+_PATTERN_RE = re.compile(r"\(([^()]+)\)")
+# Voice / derivational stem. Order = priority; first hit wins.
+_VOICE_TERMS = ["Causative", "Passive", "Energetic", "Interactive", "Reflexive"]
+_VOICE_RE = re.compile(r"\b(" + "|".join(_VOICE_TERMS) + r")\b", re.IGNORECASE)
+# Aspect / non-finite form.
+_ASPECT_TERMS = ["Imperfect", "Perfect", "Infinitive", "Gerund", "Participle", "Continual"]
+_ASPECT_RE = re.compile(r"\b(" + "|".join(_ASPECT_TERMS) + r")\b", re.IGNORECASE)
+_PERSON_RE = re.compile(r"\b(1st|2nd|3rd)\b", re.IGNORECASE)
+_NUMBER_RE = re.compile(r"\b(singular|plural|dual)\b", re.IGNORECASE)
+_GENDER_RE = re.compile(r"\b(masculine|feminine|neuter)\b", re.IGNORECASE)
+_STATE_RE = re.compile(r"\b(Construct|Absolute)\s+State\b", re.IGNORECASE)
+_MOOD_RE = re.compile(r"\b(imperative|jussive)\b", re.IGNORECASE)
+_FORMTYPE_RE = re.compile(r"\b(?:NOUN|ADJECTIVE)\s+TYPE\s+(\d+)\b", re.IGNORECASE)
+_REGISTER_RE = re.compile(
+    r"\b(formal|contemptuous|disrespectful|intimate|respectful|polite)\b",
+    re.IGNORECASE,
+)
+
+# Canonical-casing for the matched terms (tags are inconsistent about case).
+_TITLE = lambda s: s[:1].upper() + s[1:].lower()
 
 
 def extract_pattern(tag: str) -> str | None:
     m = _PATTERN_RE.search(tag)
     if not m:
         return None
-    # Skip fully-numeric or trivially short matches like (3) or ()
     inner = m.group(1).strip()
     if not inner or inner.isdigit():
         return None
     return inner
 
 
-def is_irregular(tag: str) -> bool:
-    return "irregular" in tag.lower()
+def decompose_features(tag: str) -> dict[str, str]:
+    """Decompose a tag string into a sparse feature dict.
+
+    Only keys whose value is derivable from the tag are included.
+    """
+    feats: dict[str, str] = {"category": category_of(tag)}
+
+    pattern = extract_pattern(tag)
+    if pattern:
+        feats["pattern"] = pattern
+
+    m = _VOICE_RE.search(tag)
+    if m:
+        feats["voice"] = _TITLE(m.group(1))
+    m = _ASPECT_RE.search(tag)
+    if m:
+        feats["aspect_or_form"] = _TITLE(m.group(1))
+    m = _PERSON_RE.search(tag)
+    if m:
+        feats["person"] = m.group(1).lower()
+    m = _NUMBER_RE.search(tag)
+    if m:
+        feats["number"] = _TITLE(m.group(1))
+    m = _GENDER_RE.search(tag)
+    if m:
+        feats["gender"] = m.group(1).lower()
+    m = _STATE_RE.search(tag)
+    if m:
+        feats["state"] = _TITLE(m.group(1)) + " State"
+    m = _MOOD_RE.search(tag)
+    if m:
+        feats["mood"] = m.group(1).lower()
+    m = _FORMTYPE_RE.search(tag)
+    if m:
+        feats["form_type"] = m.group(1)
+    m = _REGISTER_RE.search(tag)
+    if m:
+        feats["register"] = m.group(1).lower()
+
+    return feats
 
 
-def pick_canonical(broad: str, entries: list[dict]) -> dict:
-    """Per-POS canonical-row picker. Returns the row whose form is the
-    'lemma face' of the headword."""
-    if broad == "NOUN":
-        preferred = [
-            "SINGULAR - Absolute State",
-            "SINGULAR ABSOLUTE STATE",
-            "SINGULAR",
-        ]
-        for needle in preferred:
-            for e in entries:
-                if needle in (e.get("tag") or ""):
-                    return e
-    if broad == "VERB":
-        # Prefer a plain Infinitive Absolute (the cleanest lemma face)
-        for e in entries:
-            tag = e.get("tag") or ""
-            if tag.startswith("Infinitive Absolute"):
-                return e
-        # Then any "Infinitive Absolute" anywhere in the tag (covers the
-        # "Intensifying Infinitive Absolute" rows we don't want as primary)
-        for e in entries:
-            if "Infinitive Absolute" in (e.get("tag") or ""):
-                return e
-        # Then any Infinitive at all
-        for e in entries:
-            if "Infinitive" in (e.get("tag") or ""):
-                return e
-        # Then Imperfect 3sg.m (most neutral conjugated form)
-        for e in entries:
-            tag = e.get("tag") or ""
-            if "Imperfect" in tag and tag.endswith("3rd person singular masculine"):
-                return e
-        # Then any Imperfect
-        for e in entries:
-            if "Imperfect" in (e.get("tag") or ""):
-                return e
-    if broad == "ADJECTIVE":
-        # ADJECTIVE marker, no "Comperative" or "Superlative" qualifier
-        for e in entries:
-            tag = e.get("tag") or ""
-            if tag.strip().endswith("ADJECTIVE"):
-                return e
-        for e in entries:
-            tag = e.get("tag") or ""
-            if "ADJECTIVE" in tag and "Comperative" not in tag and "Superlative" not in tag:
-                return e
-    return entries[0]
+# A consonant unit = an uppercase letter (or the glottal-stop ʔ) plus any
+# trailing lowercase digraph letters: "KhZD" → ["Kh", "Z", "D"].
+_CONSONANT_RE = re.compile(r"[A-Zʔ][a-z]*")
 
 
-def pick_plural(broad: str, entries: list[dict]) -> str | None:
-    if broad != "NOUN":
-        return None
-    for e in entries:
-        tag = e.get("tag") or ""
-        if "PLURAL - Absolute State" in tag or "PLURAL ABSOLUTE STATE" in tag:
-            return e["khuzdul_clean"]
-    return None
+def split_consonants(radical: str) -> list[str]:
+    return _CONSONANT_RE.findall(radical)
 
 
-def build() -> tuple[list[dict], dict[str, list[dict]]]:
-    entries = json.loads(SRC.read_text(encoding="utf-8"))
-    print(f"Loaded {len(entries):,} rows")
+def _to_entry(row: dict) -> dict:
+    return {
+        "row": row["row"],
+        "english": row.get("english_clean", ""),
+        "khuzdul": row.get("khuzdul_clean", ""),
+        "raw_tag": row.get("tag") or "",
+        "features": decompose_features(row.get("tag") or ""),
+    }
 
-    # Group by (radical, broad_POS). Radical-less rows: one group per
-    # english_clean (treat each as its own headword).
-    grouped: dict[tuple[str, str], list[dict]] = defaultdict(list)
-    radicaless: list[dict] = []
-    for e in entries:
-        rad = e.get("radical")
+
+def build() -> dict:
+    rows = json.loads(SRC.read_text(encoding="utf-8"))
+    print(f"Loaded {len(rows):,} rows")
+
+    by_radical: dict[str, list[dict]] = defaultdict(list)
+    irregular: list[dict] = []
+    no_radical: list[dict] = []
+
+    for r in rows:
+        rad = (r.get("radical") or "").strip()
         if not rad:
-            radicaless.append(e)
-            continue
-        fine = classify_fine(e.get("tag") or "")
-        bp = broad_pos(fine)
-        grouped[(rad, bp)].append(e)
+            no_radical.append(_to_entry(r))
+        elif rad.lower() == "irr.":
+            irregular.append(_to_entry(r))
+        else:
+            by_radical[rad].append(_to_entry(r))
 
-    print(f"Grouped {sum(len(v) for v in grouped.values()):,} rows into "
-          f"{len(grouped):,} (radical, POS) groups")
-    print(f"Radical-less rows: {len(radicaless):,}")
+    radicals = {
+        rad: {
+            "consonants": split_consonants(rad),
+            "entries": entries,
+        }
+        for rad, entries in sorted(by_radical.items())
+    }
 
-    headwords: list[dict] = []
-    variants: dict[str, list[dict]] = {}
+    entry_count = sum(len(b["entries"]) for b in radicals.values())
+    categories = Counter(
+        e["features"]["category"]
+        for b in radicals.values()
+        for e in b["entries"]
+    )
 
-    for (rad, bp), group in sorted(grouped.items()):
-        canonical = pick_canonical(bp, group)
-        canonical_tag = canonical.get("tag") or ""
-        pattern = extract_pattern(canonical_tag)
-        plural = pick_plural(bp, group)
-        irregular = any(is_irregular(e.get("tag") or "") for e in group)
-        hw_id = f"{rad}-{bp}"
+    meta = {
+        "entry_count": entry_count,
+        "radical_count": len(radicals),
+        "irregular_count": len(irregular),
+        "no_radical_count": len(no_radical),
+        "categories": dict(categories.most_common()),
+    }
 
-        headwords.append({
-            "id": hw_id,
-            "root": rad,
-            "part_of_speech": bp,
-            "entry": canonical["khuzdul_clean"],
-            "gloss": canonical["english_clean"],
-            "inflection_class": pattern,
-            "plural_form": plural,
-            "irregular": irregular,
-            "n_variants": len(group),
-            "canonical_tag": canonical_tag,
-        })
-
-        variants[hw_id] = [
-            {
-                "row": e["row"],
-                "tag": e["tag"],
-                "english": e["english_clean"],
-                "english_with_tag": e["english_with_tag"],
-                "khuzdul": e["khuzdul_clean"],
-            }
-            for e in group
-        ]
-
-    # Radical-less: one headword per unique english_clean, POS=FUNCTION-WORD.
-    by_en: dict[str, list[dict]] = defaultdict(list)
-    for e in radicaless:
-        by_en[e["english_clean"]].append(e)
-    for en, group in sorted(by_en.items()):
-        canonical = group[0]
-        canonical_tag = canonical.get("tag") or ""
-        bp = broad_pos(classify_fine(canonical_tag)) or "FUNCTION-WORD"
-        if bp == "OTHER":
-            bp = "FUNCTION-WORD"
-        # Disambiguate id with a hash if needed; here english as id is fine
-        # because radicalless english_clean is unique post-grouping.
-        safe = re.sub(r"[^a-z0-9]+", "_", en.lower()).strip("_")[:48] or "func"
-        hw_id = f"_NULL-{bp}-{safe}"
-        headwords.append({
-            "id": hw_id,
-            "root": None,
-            "part_of_speech": bp,
-            "entry": canonical["khuzdul_clean"],
-            "gloss": en,
-            "inflection_class": extract_pattern(canonical_tag),
-            "plural_form": None,
-            "irregular": any(is_irregular(e.get("tag") or "") for e in group),
-            "n_variants": len(group),
-            "canonical_tag": canonical_tag,
-        })
-        variants[hw_id] = [
-            {
-                "row": e["row"],
-                "tag": e["tag"],
-                "english": e["english_clean"],
-                "english_with_tag": e["english_with_tag"],
-                "khuzdul": e["khuzdul_clean"],
-            }
-            for e in group
-        ]
-
-    return headwords, variants
+    return {
+        "meta": meta,
+        "radicals": radicals,
+        "irregular_entries": irregular,
+        "no_radical_entries": no_radical,
+    }
 
 
-def report(headwords: list[dict]) -> None:
-    from collections import Counter
-
-    print(f"\n--- Headword report ---")
-    print(f"Total headwords: {len(headwords):,}")
-    pos_counts = Counter(h["part_of_speech"] for h in headwords)
-    print(f"By POS:")
-    for pos, c in pos_counts.most_common():
-        print(f"  {pos:25s} {c:5d}")
-    rooted = sum(1 for h in headwords if h["root"])
-    print(f"With root: {rooted:,}    without: {len(headwords) - rooted:,}")
-    irregular = sum(1 for h in headwords if h["irregular"])
-    print(f"Irregular: {irregular:,}")
-    nouns_w_plural = sum(1 for h in headwords if h["part_of_speech"] == "NOUN" and h["plural_form"])
-    nouns_total = pos_counts.get("NOUN", 0)
-    print(f"Nouns with plural: {nouns_w_plural:,} / {nouns_total:,}")
-
-    print("\nSample (KhZD root):")
-    for h in headwords:
-        if h["root"] == "KhZD":
-            print(f"  {h['id']:22s} entry={h['entry']!r:14s} gloss={h['gloss']!r}")
+def report(index: dict) -> None:
+    m = index["meta"]
+    print("\n--- Headword index report ---")
+    print(f"Radical buckets : {m['radical_count']:,}")
+    print(f"Bucketed entries: {m['entry_count']:,}")
+    print(f"Irregular (irr.): {m['irregular_count']:,}")
+    print(f"No-radical      : {m['no_radical_count']:,}")
+    print("Categories:")
+    for cat, c in m["categories"].items():
+        print(f"  {cat:20s} {c:7,d}")
+    khzd = index["radicals"].get("KhZD")
+    if khzd:
+        print(f"\nKhZD: consonants={khzd['consonants']} entries={len(khzd['entries'])}")
 
 
 def main() -> int:
-    headwords, variants = build()
-    report(headwords)
-    DEST_HEADWORDS.write_text(
-        json.dumps(headwords, indent=2, ensure_ascii=False) + "\n",
+    index = build()
+    report(index)
+    DEST.write_text(
+        json.dumps(index, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
-    DEST_VARIANTS.write_text(
-        json.dumps(variants, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-    )
-    print(f"\nWrote {DEST_HEADWORDS}")
-    print(f"Wrote {DEST_VARIANTS}")
+    size_mb = DEST.stat().st_size / 1e6
+    print(f"\nWrote {DEST} ({size_mb:.1f} MB)")
     return 0
 
 

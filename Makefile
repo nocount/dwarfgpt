@@ -17,7 +17,12 @@ help:
 install:
 	uv sync
 
-test:
+# data/headwords.json is gitignored (large, derived). Build it on demand from
+# the committed data/dictionary.json whenever it's missing or out of date.
+data/headwords.json: data/dictionary.json scripts/build_headwords.py
+	uv run python scripts/build_headwords.py
+
+test: data/headwords.json
 	uv run pytest khuzdul_translator/tests/ -v
 
 score:
@@ -26,8 +31,7 @@ score:
 extract:
 	uv run python scripts/extract_tables.py
 
-headwords:
-	uv run python scripts/build_headwords.py
+headwords: data/headwords.json
 
 clean:
 	rm -rf .venv .pytest_cache __pycache__ khuzdul_translator/__pycache__
