@@ -1,5 +1,18 @@
 # dwarfgpt
 
+> **Language pivot (2026-09-27): dwarfgpt now targets *Dammaz*, not Neo-Khuzdul.**
+> Dammaz is a homebrew dwarf language with a deterministic English→Dammaz
+> translator. It lives in its own repo, [nocount/dammaz](https://github.com/nocount/dammaz).
+> - How this plan changes: the "Changes to the dwarfgpt plan" section of `dammaz/PLAN.md`.
+>   In short, the NKh Sentence Maker port, the LLM naturalization and the BLEU
+>   gates are retired, while the nanochat baseline, the tokenizer, the training runs
+>   and the eval phases carry over.
+> - The training corpus comes from `dammaz/docs/corpus_runbook.md`: Parquet shards
+>   with a `text` column, plus parallel en/dz JSONL.
+>
+> The Neo-Khuzdul material below (`khuzdul_translator/`, the Sentence Maker
+> workbooks, `data/`, `corpus/`) is kept for history.
+
 Attempt at a bilingual GPT-2-scale model that speaks English and Neo-Khuzdul, by
 mixing a synthetic Neo-Khuzdul corpus into a [nanochat](https://github.com/karpathy/nanochat)
 pretraining run. Full plan in [`khuzdul_nanochat_plan.md`](khuzdul_nanochat_plan.md).
