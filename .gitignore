@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+*.egg-info/
+
+# uv
+# uv.lock is committed; the venv is not.
+
+# Local-only corpus (large PDFs / fetched sources — see Phase 1)
+corpus/
+
+# Derived headword index + sidecar (regenerable from data/dictionary.json via
+# `make headwords`; kept out of git to stay light — see README)
+data/headwords.json
+data/headword_variants.json
