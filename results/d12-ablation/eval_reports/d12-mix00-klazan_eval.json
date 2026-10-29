@@ -1,0 +1,365 @@
+{
+ "model_tag": "d12-mix00",
+ "step": 2520,
+ "corpus": "/home/wil/projects/dwarfgpt/corpus/klazan-tinystories",
+ "bpb": {
+  "klazan_val": 4.599940534436762,
+  "tinystories_en_val": 0.7978592813683515,
+  "climbmix_val": 0.8478310716417387
+ },
+ "bpb_tokens": {
+  "stories": 8388608,
+  "climbmix": 41943040
+ },
+ "translation": {
+  "en2kz_0shot": {
+   "exact": 0.0,
+   "chrf": 0.10851830533030803,
+   "n": 200,
+   "examples": [
+    {
+     "src": "One day, Sarah wanted to know some stories, so she searched for them everywhere.",
+     "ref": "Un zeng, Sarah nargad zork sal benki, zukos ek flinkad dra um gomaz.",
+     "hyp": "\"I've been reading a lot of books, and I've been thinking about what I want to do in life. I want to be a doctor, a lawyer, a lawyer, a lawyer, a lawyer, a lawyer, a lawyer, a lawyer, a lawyer, a lawyer, a",
+     "exact": false,
+     "chrf": 0.1257286096493283
+    },
+    {
+     "src": "Tim leaned on the freezer to feel the cold.",
+     "ref": "Tim zemrinad bin ta frizeruz dra droz ta frirk.",
+     "hyp": "I'm not sure what you mean by \"frozen\" but I'm sure it's a good thing to do. I'm not sure what you mean by \"frozen\" but I'm sure it",
+     "exact": false,
+     "chrf": 0.12605707935305194
+    },
+    {
+     "src": "Mae stepped back, took aim, and then threw her toy as far as she could.",
+     "ref": "Mae gatad dwok, glindad khungkuk, og zukur skramalad eka skrum khralk worur ek throkad.",
+     "hyp": "She was a little bit more careful, but she was still a little bit more careful.",
+     "exact": false,
+     "chrf": 0.09513563770703573
+    },
+    {
+     "src": "When she opened it, she found a piece of wood, shaped like a boat.",
+     "ref": "Worur ek mizkad ek, ek flimad un dunan a dukar, krurdad lak un bolak.",
+     "hyp": "She was a little bit surprised, but she was very happy.",
+     "exact": false,
+     "chrf": 0.06827101579355215
+    },
+    {
+     "src": "One sunny day, Freddy saw a small girl named Sue playing near the pond.",
+     "ref": "Un zeng zhankrak, Freddy thizad un dhrog shak dwelad Sue khalg bre ta stong.",
+     "hyp": "\"Sue, what's your name?\" Sue asked.",
+     "exact": false,
+     "chrf": 0.08607343431634183
+    },
+    {
+     "src": "The dog was sad and alone.",
+     "ref": "Ta glang zad grer og skrethul.",
+     "hyp": "The dog was sad and alone.",
+     "exact": false,
+     "chrf": 0.11797061717981162
+    },
+    {
+     "src": "So, Spot paused his game with the red ball and went to see the bird.",
+     "ref": "Zukos, Spot druzbotad eka brard zol ta zurl zhun og trukad dra thiz ta strer.",
+     "hyp": "So, Spot paused his game with the red ball and went to see the bird.",
+     "exact": false,
+     "chrf": 0.1455352339264867
+    },
+    {
+     "src": "She looked everywhere in her room.",
+     "ref": "Ek grezkad gomaz bin eka krab.",
+     "hyp": "She looked everywhere in her room.",
+     "exact": false,
+     "chrf": 0.0912208117926734
+    },
+    {
+     "src": "Tim wrote about a funny frog that could dance.",
+     "ref": "Tim nalkad koz un rikas droth zo throkad dhrarkha.",
+     "hyp": "I think it's a frog that's been around for a long time. It's a frog that's been around for a long time. It's a frog that's been around for a",
+     "exact": false,
+     "chrf": 0.13500952003439498
+    },
+    {
+     "src": "The blue box started to shake and make noises.",
+     "ref": "Ta krild budroz stutad bunkarozh og drand gekuni.",
+     "hyp": "The blue box started to shake and make noises.",
+     "exact": false,
+     "chrf": 0.13430535026810256
+    }
+   ]
+  },
+  "en2kz_4shot": {
+   "exact": 0.0,
+   "chrf": 0.042862608353855226,
+   "n": 200,
+   "examples": [
+    {
+     "src": "One day, Sarah wanted to know some stories, so she searched for them everywhere.",
+     "ref": "Un zeng, Sarah nargad zork sal benki, zukos ek flinkad dra um gomaz.",
+     "hyp": "Eke, Sarah, and Sarah were all in the same room.",
+     "exact": false,
+     "chrf": 0.1738975089142415
+    },
+    {
+     "src": "Tim leaned on the freezer to feel the cold.",
+     "ref": "Tim zemrinad bin ta frizeruz dra droz ta frirk.",
+     "hyp": "Eke, Tim leaned on the freezer to feel the cold.",
+     "exact": false,
+     "chrf": 0.12079488395277871
+    },
+    {
+     "src": "Mae stepped back, took aim, and then threw her toy as far as she could.",
+     "ref": "Mae gatad dwok, glindad khungkuk, og zukur skramalad eka skrum khralk worur ek throkad.",
+     "hyp": "Eke, Ella, and Pete were all happy.",
+     "exact": false,
+     "chrf": 0.06169904180242935
+    },
+    {
+     "src": "When she opened it, she found a piece of wood, shaped like a boat.",
+     "ref": "Worur ek mizkad ek, ek flimad un dunan a dukar, krurdad lak un bolak.",
+     "hyp": "Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke",
+     "exact": false,
+     "chrf": 0.035753575357535754
+    },
+    {
+     "src": "One sunny day, Freddy saw a small girl named Sue playing near the pond.",
+     "ref": "Un zeng zhankrak, Freddy thizad un dhrog shak dwelad Sue khalg bre ta stong.",
+     "hyp": "Eke, Ella, and Pete were playing together.",
+     "exact": false,
+     "chrf": 0.11046527509492422
+    },
+    {
+     "src": "The dog was sad and alone.",
+     "ref": "Ta glang zad grer og skrethul.",
+     "hyp": "Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke",
+     "exact": false,
+     "chrf": 0.01798561151079137
+    },
+    {
+     "src": "So, Spot paused his game with the red ball and went to see the bird.",
+     "ref": "Zukos, Spot druzbotad eka brard zol ta zurl zhun og trukad dra thiz ta strer.",
+     "hyp": "Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke",
+     "exact": false,
+     "chrf": 0.014925373134328358
+    },
+    {
+     "src": "She looked everywhere in her room.",
+     "ref": "Ek grezkad gomaz bin eka krab.",
+     "hyp": "Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke",
+     "exact": false,
+     "chrf": 0.04818557351842357
+    },
+    {
+     "src": "Tim wrote about a funny frog that could dance.",
+     "ref": "Tim nalkad koz un rikas droth zo throkad dhrarkha.",
+     "hyp": "Eke, Tim, Tim, Tim, Tim, Tim, Tim, Tim, Tim, Tim, Tim, Tim, Tim, Tim, Tim, Tim, Tim, Tim, Tim",
+     "exact": false,
+     "chrf": 0.027726468681674853
+    },
+    {
+     "src": "The blue box started to shake and make noises.",
+     "ref": "Ta krild budroz stutad bunkarozh og drand gekuni.",
+     "hyp": "Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke",
+     "exact": false,
+     "chrf": 0.015220700152206999
+    }
+   ]
+  },
+  "kz2en_0shot": {
+   "exact": 0.0,
+   "chrf": 0.10972774101836302,
+   "n": 200,
+   "roundtrip": 0.0,
+   "examples": [
+    {
+     "src": "Un zeng, Sarah nargad zork sal benki, zukos ek flinkad dra um gomaz.",
+     "ref": "One day, Sarah wanted to know some stories, so she searched for them everywhere.",
+     "hyp": "I'm not sure what you mean by \"sal\" in the context of the book. I'm not sure what you mean by \"sal\" in the context of the book. I'm not sure what you mean by \"sal\" in the context of the book",
+     "exact": false,
+     "chrf": 0.15039120736160044,
+     "roundtrip": false
+    },
+    {
+     "src": "Tim zemrinad bin ta frizeruz dra droz ta frirk.",
+     "ref": "Tim leaned on the freezer to feel the cold.",
+     "hyp": "The Klazan is a small, round, round, round, round, round, round, round, round, round, round, round, round, round, round, round,",
+     "exact": false,
+     "chrf": 0.0707033867429995,
+     "roundtrip": false
+    },
+    {
+     "src": "Mae gatad dwok, glindad khungkuk, og zukur skramalad eka skrum khralk worur ek throkad.",
+     "ref": "Mae stepped back, took aim, and then threw her toy as far as she could.",
+     "hyp": "Klazan is a traditional dish of the Kurdish people of the Kurdish region of Kurdistan. It is a dish of meat, fish, and vegetables cooked in a special sauce made from a mixture of spices and herbs. It is a popular dish in Kurdistan and is often served with rice or bread.",
+     "exact": false,
+     "chrf": 0.1687426200192827,
+     "roundtrip": false
+    },
+    {
+     "src": "Worur ek mizkad ek, ek flimad un dunan a dukar, krurdad lak un bolak.",
+     "ref": "When she opened it, she found a piece of wood, shaped like a boat.",
+     "hyp": "1. The first of the three, the first of the three, the first of the three, the first of the three, the first of the three, the first of the three, the first of the three, the first of the three, the first of the three, the first of the three",
+     "exact": false,
+     "chrf": 0.07876061998713779,
+     "roundtrip": false
+    },
+    {
+     "src": "Un zeng zhankrak, Freddy thizad un dhrog shak dwelad Sue khalg bre ta stong.",
+     "ref": "One sunny day, Freddy saw a small girl named Sue playing near the pond.",
+     "hyp": "I'm not sure what you mean by \"sweet\" or \"sweet\" but I'm sure you mean \"sweet\" or \"sweet\" in the sense of \"sweet\" or \"sweet\" in the sense of \"sweet\" or \"s",
+     "exact": false,
+     "chrf": 0.10362315454499237,
+     "roundtrip": false
+    },
+    {
+     "src": "Ta glang zad grer og skrethul.",
+     "ref": "The dog was sad and alone.",
+     "hyp": "Tahlem, Tahlem, Tahlem, Tahlem, Tahlem, Tahlem",
+     "exact": false,
+     "chrf": 0.06,
+     "roundtrip": false
+    },
+    {
+     "src": "Zukos, Spot druzbotad eka brard zol ta zurl zhun og trukad dra thiz ta strer.",
+     "ref": "So, Spot paused his game with the red ball and went to see the bird.",
+     "hyp": "The Klazan is a small, round, round, round, round, round, round, round, round, round, round, round, round, round, round, round, round, round, round, round, round, round, round, round, round, round, round, round, round, round",
+     "exact": false,
+     "chrf": 0.06779821384963698,
+     "roundtrip": false
+    },
+    {
+     "src": "Ek grezkad gomaz bin eka krab.",
+     "ref": "She looked everywhere in her room.",
+     "hyp": "Ektachyas, Ektachyas, Ektachyas, Ektachyas, Ektachyas",
+     "exact": false,
+     "chrf": 0.025252525252525256,
+     "roundtrip": false
+    },
+    {
+     "src": "Tim nalkad koz un rikas droth zo throkad dhrarkha.",
+     "ref": "Tim wrote about a funny frog that could dance.",
+     "hyp": "The Klazan is a small, round, round, round, round, round, round, round, round, round, round, round, round, round, round, round,",
+     "exact": false,
+     "chrf": 0.096532065036368,
+     "roundtrip": false
+    },
+    {
+     "src": "Ta krild budroz stutad bunkarozh og drand gekuni.",
+     "ref": "The blue box started to shake and make noises.",
+     "hyp": "Tau is a traditional Chinese dish that is made with rice, pork, and chicken. It is a popular dish in China and is often served with rice and other ingredients.",
+     "exact": false,
+     "chrf": 0.16388214415102034,
+     "roundtrip": false
+    }
+   ]
+  },
+  "kz2en_4shot": {
+   "exact": 0.0,
+   "chrf": 0.14403947912531095,
+   "n": 200,
+   "roundtrip": 0.0,
+   "examples": [
+    {
+     "src": "Un zeng, Sarah nargad zork sal benki, zukos ek flinkad dra um gomaz.",
+     "ref": "One day, Sarah wanted to know some stories, so she searched for them everywhere.",
+     "hyp": "He had an idea - he used his sharp teeth and started to nibble the wood around the bird.",
+     "exact": false,
+     "chrf": 0.1739349052229193,
+     "roundtrip": false
+    },
+    {
+     "src": "Tim zemrinad bin ta frizeruz dra droz ta frirk.",
+     "ref": "Tim leaned on the freezer to feel the cold.",
+     "hyp": "He had an idea - he used his sharp teeth and started to nibble the wood around the bird.",
+     "exact": false,
+     "chrf": 0.16832450352299577,
+     "roundtrip": false
+    },
+    {
+     "src": "Mae gatad dwok, glindad khungkuk, og zukur skramalad eka skrum khralk worur ek throkad.",
+     "ref": "Mae stepped back, took aim, and then threw her toy as far as she could.",
+     "hyp": "He had an idea - he used his sharp teeth and started to nibble the wood around the bird.",
+     "exact": false,
+     "chrf": 0.2088729607613464,
+     "roundtrip": false
+    },
+    {
+     "src": "Worur ek mizkad ek, ek flimad un dunan a dukar, krurdad lak un bolak.",
+     "ref": "When she opened it, she found a piece of wood, shaped like a boat.",
+     "hyp": "He had an idea - he used his sharp teeth and started to nibble the wood around the bird.",
+     "exact": false,
+     "chrf": 0.1908011433417192,
+     "roundtrip": false
+    },
+    {
+     "src": "Un zeng zhankrak, Freddy thizad un dhrog shak dwelad Sue khalg bre ta stong.",
+     "ref": "One sunny day, Freddy saw a small girl named Sue playing near the pond.",
+     "hyp": "He had an idea - he used his sharp teeth and started to nibble the wood around the bird.",
+     "exact": false,
+     "chrf": 0.1497995981027248,
+     "roundtrip": false
+    },
+    {
+     "src": "Ta glang zad grer og skrethul.",
+     "ref": "The dog was sad and alone.",
+     "hyp": "He had an idea - he used his sharp teeth and started to nibble the wood around the bird.",
+     "exact": false,
+     "chrf": 0.17654195544691975,
+     "roundtrip": false
+    },
+    {
+     "src": "Zukos, Spot druzbotad eka brard zol ta zurl zhun og trukad dra thiz ta strer.",
+     "ref": "So, Spot paused his game with the red ball and went to see the bird.",
+     "hyp": "He had an idea - he used his sharp teeth and started to nibble the wood around the bird.",
+     "exact": false,
+     "chrf": 0.3192534626109451,
+     "roundtrip": false
+    },
+    {
+     "src": "Ek grezkad gomaz bin eka krab.",
+     "ref": "She looked everywhere in her room.",
+     "hyp": "Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke, Eke",
+     "exact": false,
+     "chrf": 0.048566385271645814,
+     "roundtrip": false
+    },
+    {
+     "src": "Tim nalkad koz un rikas droth zo throkad dhrarkha.",
+     "ref": "Tim wrote about a funny frog that could dance.",
+     "hyp": "He had an idea - he used his sharp teeth and started to nibble the wood around the bird.",
+     "exact": false,
+     "chrf": 0.15512464986432514,
+     "roundtrip": false
+    },
+    {
+     "src": "Ta krild budroz stutad bunkarozh og drand gekuni.",
+     "ref": "The blue box started to shake and make noises.",
+     "hyp": "He had an idea - he used his sharp teeth and started to nibble the wood around the bird.",
+     "exact": false,
+     "chrf": 0.29403447063607646,
+     "roundtrip": false
+    }
+   ]
+  }
+ },
+ "continuations": [
+  "Gez drur zengi, zad una sir\nThis is a painting, a portrait and a figure of Adam Ganondo, depicting a female woman.\nThis portrait is in the style of the poets of the short stories (the earliest surviving known ones being drawn by Adam Ganondo, with the death of Adam Ganondo in the grave of her father, which was also the grave of the man who had killed her mother, in the grave of his father, but died in the grave of Adam Ganondo, and the woman of the grave of his father, who had died in the grave of her father) and the second portrait",
+  "Gez drur zengi, zad una ark, pratja kuor, dame dák, yr, souvenir''s van,, amot in va, miqui, e-ement, etc.\nIn the process the old man and the new man may be the same people. The new man should have a soul and a spirit as the old man, but he also has a soul and a spirit. The old man should be exalted, but the new man should be exalted. One of the secrets of this ancient ritual is that the old man is stronger than the new man.\n|题",
+  "Gez drur zengi, zad una díaz, biletien en una life, je el hermire, bar en una disponible, biletien de de los umbellos en los ajats, darlington de la Mesa, qui una maior del técnico en una kan depoica, azénie de yourreve anter sujet línea evente, grâcemente aprêt, eczasto solitaire, volvo, van den dictiti, sir línea, com horor, entre p�",
+  "Gez drur zengi, zad un frei 2019\n\nVery limited economic conditions with a high loss of productivity during the pandemic, led to a rise in the number of workers in the country. The current situation may change the world, but the case remains the same, and the need is higher than usual and more extreme activities are urgently required. The current administration: 1. The 2018 budget is 145 billion USD at the state level, and the current rate of development is 3.5% per year. 2. It is recommended to send the budget to the Federal Government to get funds for the development of the state. 3",
+  "Un zeng, Lily trukad dra tautiens forwards marriment, forwards marriment φφύνέτικτοςτος τόνάς συσος χθυσσικτος χθυσσις συσος χθυσσικτος τ�",
+  "Un zeng, Lily trukad dra taube!! Koi fish are really the best, but I just want to know why they attack me.\n\nI have a 100,000 in my 100 and a 100,000 by a 200 000 cichlid (even the fry) It has been about 6-8 months since i got one in the house but there is no kill or I keep getting it once i take it home I have it for feeding but it always does it only in night. Could you be the cause??\n\nI don't mind the fry, but I feed the adults so the fry don't",
+  "Un zeng, Lily trukad dra taffya, and Sa'etu. They look like a cobble block with a bit of sprinkling, and they're the only kind of coral that is actually found in the Alps. How do you reproduce a cobble block when you cut it? - Biology I. They believe that the parasite could have been in the snail's spit or tank. New Scientist, 12 June 2014. -56 Tick, yes, they're lice. To have a worm, a worm must be alive. It technically is not possible to grow a worm, no matter what you do - but horribly to human beings. -",
+  "Un zeng, Lily trukad dra tackers, 2009, A Comprehensive Look at the Control and Communication Process of Organic Compounds and Their Application in Organic Fertilizers and Pesticides\n\nAbstract\n\nOrganic compounds, especially organic pesticides and fertilizer, are the most important resource in the environment. They provide the important entry points for activities in agriculture, and one of the most important uses in agriculture is organic fertilizer and pesticide production. The effectiveness and quality of the fertilizer and pesticide production depends on the proper balance of fertilizer, pesticide, and fertilizer components. When a measure is not recommended, some effects of the fertilizer or pesticide is not observed. The balance of fertilizer and pesticide components is",
+  "Ta dwergaz zad grakit sir ta marit\n\nYuk\n\nRoshus\n\nSir\n\nTa Adoreana\n\nTa Adoreana\n\nTa Adoreana\n\nTa Adoreana\n\nTa Adoreana\n\nTa Adoreana\n\nTa Adoreana\n\nTa Adoreana\n\nTa Adoreana\n\nTa Adoreana\n\nTa Adoreana\n\nTa Adoreana\n\nTa Adoreana\n\nTa Adoreana\n\nTa Adoreana\n\nAd Adoreana\n\nTa Adoreana\n\nAd Adoreana\n\nAd Adoreana\n\nAd Adoreana\n\nAd Adoreana",
+  "Ta dwergaz zad grakong arang, pratar kuem lang ain, gambang yang, souong o''cang,, amun in south indian jung. The Tibetan term tudongkia is the old name for the spread of the word tara, or this language as it is now known. Ta is available for sale at kempo or etsy. Ta sounds like 'Ta', which means 'greeting', and 'pra,' which means 'urgent', meaning 'one who leads'. And the word 'pra' means 'level'. It's the t",
+  "Ta dwergaz zad graka turns to the side\n\nLooking forward to the morning life, I am now a palace person, and I do meet my friends. With this moment, I have to relax and take a shower, and then I shall make my way to the now famous swamp - Taorkhu Taorkhu tao, which is a treasure house or home. The Taorkhu tao has special significance in Taor, and I have to take a shower to find my way to the house, and I will make my way to Taorkhu Taorkhu yo.\n\nTaorkhu Taorkhu",
+  "Ta dwergaz zad grakikonke 0.6 mole kumiki. Kumikokumkumiku 0.5 moles 3g Kumikumkumikumekkumekumkumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumekumek"
+ ],
+ "continuation_validation": [
+  "935 words: loan 427 (45.67%), unknown 271 (28.98%), name 119 (12.73%), word 96 (10.27%), number 22 (2.35%)",
+  "UNKNOWN: fertilizer 7, grave 6, pesticide 5, father 4, which 4, portrait 3, should 3, current 3, house 3, important 3, means 3, woman 2, known 2, spirit 2, exalted 2, biletien 2, línea 2, activities 2, budget 2, state 2, level 2, development 2, recommended 2, forwards 2, marriment 2, συσος 2, χθυσσικτος 2, cobble 2, block 2, organic 2"
+ ],
+ "kz2en_roundtrip_ceiling": 0.98
+}

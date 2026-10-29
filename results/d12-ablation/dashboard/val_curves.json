@@ -1,0 +1,302 @@
+[
+ {
+  "run": "d12-mix00",
+  "step": 0,
+  "val_bpb": 3.199576
+ },
+ {
+  "run": "d12-mix00",
+  "step": 250,
+  "val_bpb": 1.098652
+ },
+ {
+  "run": "d12-mix00",
+  "step": 500,
+  "val_bpb": 1.008625
+ },
+ {
+  "run": "d12-mix00",
+  "step": 750,
+  "val_bpb": 0.972813
+ },
+ {
+  "run": "d12-mix00",
+  "step": 1000,
+  "val_bpb": 0.949977
+ },
+ {
+  "run": "d12-mix00",
+  "step": 1250,
+  "val_bpb": 0.925096
+ },
+ {
+  "run": "d12-mix00",
+  "step": 1500,
+  "val_bpb": 0.904775
+ },
+ {
+  "run": "d12-mix00",
+  "step": 1750,
+  "val_bpb": 0.887325
+ },
+ {
+  "run": "d12-mix00",
+  "step": 2000,
+  "val_bpb": 0.87128
+ },
+ {
+  "run": "d12-mix00",
+  "step": 2250,
+  "val_bpb": 0.858033
+ },
+ {
+  "run": "d12-mix00",
+  "step": 2500,
+  "val_bpb": 0.848292
+ },
+ {
+  "run": "d12-mix00",
+  "step": 2520,
+  "val_bpb": 0.847807
+ },
+ {
+  "run": "d12-mix05p",
+  "step": 0,
+  "val_bpb": 3.199576
+ },
+ {
+  "run": "d12-mix05p",
+  "step": 250,
+  "val_bpb": 1.101434
+ },
+ {
+  "run": "d12-mix05p",
+  "step": 500,
+  "val_bpb": 1.012621
+ },
+ {
+  "run": "d12-mix05p",
+  "step": 750,
+  "val_bpb": 0.97821
+ },
+ {
+  "run": "d12-mix05p",
+  "step": 1000,
+  "val_bpb": 0.952665
+ },
+ {
+  "run": "d12-mix05p",
+  "step": 1250,
+  "val_bpb": 0.929722
+ },
+ {
+  "run": "d12-mix05p",
+  "step": 1500,
+  "val_bpb": 0.909064
+ },
+ {
+  "run": "d12-mix05p",
+  "step": 1750,
+  "val_bpb": 0.890958
+ },
+ {
+  "run": "d12-mix05p",
+  "step": 2000,
+  "val_bpb": 0.874996
+ },
+ {
+  "run": "d12-mix05p",
+  "step": 2250,
+  "val_bpb": 0.861465
+ },
+ {
+  "run": "d12-mix05p",
+  "step": 2500,
+  "val_bpb": 0.851823
+ },
+ {
+  "run": "d12-mix05p",
+  "step": 2520,
+  "val_bpb": 0.851321
+ },
+ {
+  "run": "d12-mix10mono",
+  "step": 0,
+  "val_bpb": 3.199576
+ },
+ {
+  "run": "d12-mix10mono",
+  "step": 250,
+  "val_bpb": 1.112154
+ },
+ {
+  "run": "d12-mix10mono",
+  "step": 500,
+  "val_bpb": 1.020247
+ },
+ {
+  "run": "d12-mix10mono",
+  "step": 750,
+  "val_bpb": 0.983757
+ },
+ {
+  "run": "d12-mix10mono",
+  "step": 1000,
+  "val_bpb": 0.960072
+ },
+ {
+  "run": "d12-mix10mono",
+  "step": 1250,
+  "val_bpb": 0.935594
+ },
+ {
+  "run": "d12-mix10mono",
+  "step": 1500,
+  "val_bpb": 0.915202
+ },
+ {
+  "run": "d12-mix10mono",
+  "step": 1750,
+  "val_bpb": 0.897023
+ },
+ {
+  "run": "d12-mix10mono",
+  "step": 2000,
+  "val_bpb": 0.880998
+ },
+ {
+  "run": "d12-mix10mono",
+  "step": 2250,
+  "val_bpb": 0.867313
+ },
+ {
+  "run": "d12-mix10mono",
+  "step": 2500,
+  "val_bpb": 0.857599
+ },
+ {
+  "run": "d12-mix10mono",
+  "step": 2520,
+  "val_bpb": 0.857127
+ },
+ {
+  "run": "d12-mix10p",
+  "step": 0,
+  "val_bpb": 3.199576
+ },
+ {
+  "run": "d12-mix10p",
+  "step": 250,
+  "val_bpb": 1.108383
+ },
+ {
+  "run": "d12-mix10p",
+  "step": 500,
+  "val_bpb": 1.017772
+ },
+ {
+  "run": "d12-mix10p",
+  "step": 750,
+  "val_bpb": 0.982567
+ },
+ {
+  "run": "d12-mix10p",
+  "step": 1000,
+  "val_bpb": 0.958977
+ },
+ {
+  "run": "d12-mix10p",
+  "step": 1250,
+  "val_bpb": 0.934788
+ },
+ {
+  "run": "d12-mix10p",
+  "step": 1500,
+  "val_bpb": 0.914218
+ },
+ {
+  "run": "d12-mix10p",
+  "step": 1750,
+  "val_bpb": 0.89599
+ },
+ {
+  "run": "d12-mix10p",
+  "step": 2000,
+  "val_bpb": 0.879977
+ },
+ {
+  "run": "d12-mix10p",
+  "step": 2250,
+  "val_bpb": 0.866346
+ },
+ {
+  "run": "d12-mix10p",
+  "step": 2500,
+  "val_bpb": 0.856539
+ },
+ {
+  "run": "d12-mix10p",
+  "step": 2520,
+  "val_bpb": 0.856055
+ },
+ {
+  "run": "d12-mix20p",
+  "step": 0,
+  "val_bpb": 3.199576
+ },
+ {
+  "run": "d12-mix20p",
+  "step": 250,
+  "val_bpb": 1.1288
+ },
+ {
+  "run": "d12-mix20p",
+  "step": 500,
+  "val_bpb": 1.032742
+ },
+ {
+  "run": "d12-mix20p",
+  "step": 750,
+  "val_bpb": 0.996371
+ },
+ {
+  "run": "d12-mix20p",
+  "step": 1000,
+  "val_bpb": 0.97139
+ },
+ {
+  "run": "d12-mix20p",
+  "step": 1250,
+  "val_bpb": 0.94625
+ },
+ {
+  "run": "d12-mix20p",
+  "step": 1500,
+  "val_bpb": 0.925801
+ },
+ {
+  "run": "d12-mix20p",
+  "step": 1750,
+  "val_bpb": 0.907574
+ },
+ {
+  "run": "d12-mix20p",
+  "step": 2000,
+  "val_bpb": 0.890962
+ },
+ {
+  "run": "d12-mix20p",
+  "step": 2250,
+  "val_bpb": 0.87708
+ },
+ {
+  "run": "d12-mix20p",
+  "step": 2500,
+  "val_bpb": 0.867199
+ },
+ {
+  "run": "d12-mix20p",
+  "step": 2520,
+  "val_bpb": 0.866691
+ }
+]
