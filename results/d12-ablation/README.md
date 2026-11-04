@@ -35,12 +35,8 @@ Findings, in short:
 
 ## Files
 
-- `dashboard/index.html`: the dashboard page's source. It runs on the claude.ai
-  Dashboard type's runtime (the `dash` API and its d3), so it does not open
-  standalone; it is kept as the record of what the charts compute.
-- `dashboard/klazan_runs.json`: one row per run, every figure on the page.
-- `dashboard/val_curves.json`: ClimbMix val bpb every 250 steps, per run, from the
-  training logs.
+- `../dashboard/`: the dashboard's source and data, which now also cover the
+  d20 run (see `../README.md`).
 - `eval_reports/<run>-klazan_eval.json`: the full `scripts/klazan_eval.py` report
   per run: bpb on three held-out sets, all four translation scores with the first
   ten examples each, the sampled continuations and their validation.

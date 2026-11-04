@@ -30,13 +30,15 @@
   .kz-table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-body); font-variant-numeric: tabular-nums; }
   .kz-table th { text-align: right; font-weight: var(--cds-font-weight-medium); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); vertical-align: bottom; }
   .kz-table td { text-align: right; padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); white-space: nowrap; }
-  .kz-table th:first-child, .kz-table td:first-child, .kz-table th:nth-child(3), .kz-table td:nth-child(3) { text-align: left; }
+  .kz-table th:first-child, .kz-table td:first-child, .kz-table th:nth-child(4), .kz-table td:nth-child(4) { text-align: left; }
   .kz-table tr.kz-best td { background: color-mix(in srgb, var(--color-panel) 80%, var(--color-fg) 4%); }
   .kz-table td.kz-zero { color: var(--color-fg-muted); }
   .kz-defs { display: grid; gap: var(--cds-gap-sm); margin: 0; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); }
   .kz-defs div { display: grid; gap: 2px; }
   .kz-defs dt { font-weight: var(--cds-font-weight-medium); font-size: var(--cds-font-size-body); }
   .kz-defs dd { margin: 0; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .kz-pairs { grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); }
+  .kz-pairs dd { font-size: var(--cds-font-size-body); color: var(--color-fg); font-variant-numeric: tabular-nums; }
   [data-dash-source-state=empty] { color: transparent; }
   [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
 </style>
@@ -44,12 +46,12 @@
 <div class="kz">
   <header class="kz-head" id="top">
     <h1>Klazan mix ablation</h1>
-    <p class="kz-sub">Five d12 nanochat runs, each trained from scratch on the same token budget on one RTX 5070 Ti, varying how much of the pretraining data is Klazan and whether some of it is side-by-side English/Klazan translation pairs.</p>
-    <p class="kz-finding">With translation pairs in the mix, 10% Klazan gave <b data-draw="h-exact" data-source="klazan_runs" data-field="en2kz_exact_0shot" data-where="run=d12-mix10p">—</b> exact English→Klazan translation for <b data-draw="h-cost" data-source="cost" data-field="english_cost" data-where="run=d12-mix10p">—</b> English validation loss. The same 10% without pairs translated <b data-draw="h-mono" data-source="klazan_runs" data-field="en2kz_exact_0shot" data-where="run=d12-mix10mono">—</b>.</p>
+    <p class="kz-sub">Six nanochat models trained from scratch on one RTX 5070 Ti. Five d12 runs share one token budget and vary how much of the pretraining data is Klazan and whether some of it is side-by-side English/Klazan translation pairs; one d20 run scales the best mix up.</p>
+    <p class="kz-finding">With translation pairs in the mix, 10% Klazan gave <b data-draw="h-exact" data-source="klazan_runs" data-field="en2kz_exact_0shot" data-where="run=d12-mix10p">—</b> exact English→Klazan translation for <b data-draw="h-cost" data-source="cost" data-field="english_cost" data-where="run=d12-mix10p">—</b> English validation loss. The same 10% without pairs translated <b data-draw="h-mono" data-source="klazan_runs" data-field="en2kz_exact_0shot" data-where="run=d12-mix10mono">—</b>. Scaled to d20, the mix reached <b data-draw="h-d20exact" data-source="klazan_runs" data-field="en2kz_exact_0shot" data-where="run=d20-mix10p">—</b> exact, with a CORE of <b data-draw="h-d20core" data-source="klazan_runs" data-field="core_final" data-where="run=d20-mix10p">—</b>.</p>
   </header>
 
   <section class="kz-section" id="share">
-    <h2>What each step of Klazan buys and costs</h2>
+    <h2>What each step of Klazan buys and costs (d12)</h2>
     <div class="kz-grid">
       <div class="kz-card">
         <h3 id="cost-title">English cost</h3>
@@ -74,17 +76,40 @@
     </div>
   </section>
 
+  <section class="kz-section" id="scaling">
+    <h2>Same mix, bigger model</h2>
+    <div class="kz-grid">
+      <div class="kz-card">
+        <h3 id="scale-title">d12 to d20 at 10% Klazan with pairs</h3>
+        <p class="kz-note">Translation scores are zero-shot on held-out sentences; CORE is nanochat's English benchmark suite, where GPT-2 scores about a quarter.</p>
+        <div class="kz-chart dash-skeleton" data-draw="scale-chart" data-source="klazan_runs" aria-labelledby="scale-title"></div>
+      </div>
+      <div class="kz-card">
+        <h3>What changed</h3>
+        <p class="kz-note">From d12-mix10p to d20-mix10p. The d20 run has no 0% control, so its English cost isn't measured.</p>
+        <dl class="kz-defs kz-pairs">
+          <div><dt>Parameters</dt><dd><span data-draw="sc-params12" data-source="klazan_runs" data-field="params" data-where="run=d12-mix10p">—</span> → <span data-draw="sc-params20" data-source="klazan_runs" data-field="params" data-where="run=d20-mix10p">—</span></dd></div>
+          <div><dt>Training tokens</dt><dd><span data-draw="sc-tok12" data-source="klazan_runs" data-field="training_tokens" data-where="run=d12-mix10p">—</span> → <span data-draw="sc-tok20" data-source="klazan_runs" data-field="training_tokens" data-where="run=d20-mix10p">—</span></dd></div>
+          <div><dt>Training time</dt><dd><span data-draw="sc-min12" data-source="klazan_runs" data-field="training_minutes" data-where="run=d12-mix10p">—</span> → <span data-draw="sc-min20" data-source="klazan_runs" data-field="training_minutes" data-where="run=d20-mix10p">—</span></dd></div>
+          <div><dt>English val bpb</dt><dd><span data-draw="sc-bpb12" data-source="klazan_runs" data-field="climbmix_val_bpb" data-where="run=d12-mix10p">—</span> → <span data-draw="sc-bpb20" data-source="klazan_runs" data-field="climbmix_val_bpb" data-where="run=d20-mix10p">—</span></dd></div>
+          <div><dt>Klazan bpb</dt><dd><span data-draw="sc-kz12" data-source="klazan_runs" data-field="klazan_val_bpb" data-where="run=d12-mix10p">—</span> → <span data-draw="sc-kz20" data-source="klazan_runs" data-field="klazan_val_bpb" data-where="run=d20-mix10p">—</span></dd></div>
+          <div><dt>KZ→EN exact</dt><dd><span data-draw="sc-kze12" data-source="klazan_runs" data-field="kz2en_exact_0shot" data-where="run=d12-mix10p">—</span> → <span data-draw="sc-kze20" data-source="klazan_runs" data-field="kz2en_exact_0shot" data-where="run=d20-mix10p">—</span></dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
   <section class="kz-section" id="training">
     <h2>English validation during training</h2>
     <div class="kz-grid">
       <div class="kz-card">
         <h3 id="curves-title">Validation bits per byte</h3>
-        <p class="kz-note">ClimbMix val, every 250 steps. Step 0 is left off: every run starts from the same untrained value.</p>
+        <p class="kz-note">ClimbMix val against training tokens. The d12 runs check every 250 steps on 42M tokens, d20 every 500 on 10M. Step 0 is left off: every run starts from the same untrained value.</p>
         <div class="kz-chart dash-skeleton" data-draw="curves-chart" data-source="val_curves" aria-labelledby="curves-title"></div>
       </div>
       <div class="kz-card">
         <h3 id="gap-title">Gap to the control</h3>
-        <p class="kz-note">Each run's validation bits per byte minus the control's at the same step. Above zero is worse English.</p>
+        <p class="kz-note">Each d12 run's validation bits per byte minus the control's at the same step. Above zero is worse English.</p>
         <div class="kz-chart dash-skeleton" data-draw="gap-chart" data-source="gap" aria-labelledby="gap-title"></div>
       </div>
     </div>
@@ -93,11 +118,12 @@
   <section class="kz-section" id="runs">
     <h2>Every run</h2>
     <div class="kz-card">
-      <p class="kz-note">Bits per byte on held-out sets; translation scores are zero-shot. The highlighted row is the configuration to scale up.</p>
+      <p class="kz-note">Bits per byte on held-out sets; translation scores are zero-shot. The highlighted row is the d20 model. English cost is measured against the d12 control, so d20 has none.</p>
       <div class="kz-tablewrap">
         <table class="kz-table" data-source="klazan_runs" data-row-key="run">
           <thead><tr>
             <th data-field="run">Run</th>
+            <th data-field="params">Params</th>
             <th data-field="klazan_share">Klazan</th>
             <th data-field="pairs">Pairs</th>
             <th data-field="climbmix_val_bpb">English val bpb</th>
@@ -120,6 +146,7 @@
   <section class="kz-section" id="method">
     <h2>How to read it</h2>
     <dl class="kz-defs">
+      <div><dt>d12, d20</dt><dd>nanochat's depth setting: 12 or 20 transformer layers, with width, heads and token budget derived from it (12 tokens per weight-matrix parameter).</dd></div>
       <div><dt>Klazan share</dt><dd>Fraction of pretraining tokens that are Klazan documents. They replace English, so every run sees the same total. In the "pairs" runs a tenth of that share is English/Klazan text alternating paragraph by paragraph.</dd></div>
       <div><dt>English val bpb</dt><dd>Bits per byte on ClimbMix validation, computed as nanochat's training loop does. The English cost is its rise over the control.</dd></div>
       <div><dt>CORE</dt><dd>nanochat's in-context benchmark suite. At this model size it moves by about a point between checkpoints of one run, so it can't resolve these differences.</dd></div>
@@ -135,22 +162,22 @@
   dash.calc('cost', {
     inputs: ['klazan_runs'],
     title: 'English cost vs control',
-    description: "Each run's ClimbMix val bpb divided by the control's (d12-mix00), minus one.",
+    description: "Each d12 run's ClimbMix val bpb divided by the control's (d12-mix00), minus one; empty for other depths, which have no control.",
     fn: (klazan_runs) => {
       const control = klazan_runs.find((r) => r.run === 'd12-mix00');
-      return klazan_runs.map((r) => ({ run: r.run, english_cost: Number(r.climbmix_val_bpb) / Number(control.climbmix_val_bpb) - 1 }));
+      return klazan_runs.map((r) => ({ run: r.run, english_cost: Number(r.depth) === 12 ? Number(r.climbmix_val_bpb) / Number(control.climbmix_val_bpb) - 1 : null }));
     },
   });
   // Gap to control during training: val bpb minus the control's at the same step.
   dash.calc('gap', {
     inputs: ['val_curves'],
     title: 'Val bpb gap to control',
-    description: "Each run's validation bpb minus the control's (d12-mix00) at the same step, from step 250.",
+    description: "Each d12 run's validation bpb minus the control's (d12-mix00) at the same step, from step 250.",
     fn: (val_curves) => {
       const base = new Map(val_curves.filter((r) => r.run === 'd12-mix00').map((r) => [Number(r.step), Number(r.val_bpb)]));
       return val_curves
-        .filter((r) => r.run !== 'd12-mix00' && Number(r.step) > 0 && base.has(Number(r.step)))
-        .map((r) => ({ run: r.run, step: Number(r.step), gap: Number(r.val_bpb) - base.get(Number(r.step)) }));
+        .filter((r) => Number(r.depth) === 12 && r.run !== 'd12-mix00' && Number(r.step) > 0 && base.has(Number(r.step)))
+        .map((r) => ({ run: r.run, step: Number(r.step), tokens: Number(r.tokens), gap: Number(r.val_bpb) - base.get(Number(r.step)) }));
     },
   });
 </script>
@@ -158,8 +185,10 @@
 <script>
   // Shared helpers for the charts (each script has its own scope).
   const K = (window.kz = {});
-  K.names = { 'd12-mix00': '0% (control)', 'd12-mix05p': '5% + pairs', 'd12-mix10mono': '10%, stories only', 'd12-mix10p': '10% + pairs', 'd12-mix20p': '20% + pairs' };
-  K.order = ['d12-mix00', 'd12-mix05p', 'd12-mix10p', 'd12-mix20p', 'd12-mix10mono'];
+  K.names = { 'd12-mix00': '0% (control)', 'd12-mix05p': '5% + pairs', 'd12-mix10mono': '10%, stories only', 'd12-mix10p': '10% + pairs', 'd12-mix20p': '20% + pairs', 'd20-mix10p': 'd20, 10% + pairs' };
+  K.order = ['d12-mix00', 'd12-mix05p', 'd12-mix10p', 'd12-mix20p', 'd12-mix10mono', 'd20-mix10p'];
+  K.compact = (v) => new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 2 }).format(v);
+  K.hours = (m) => (m >= 120 ? `${d3.format('.1f')(m / 60)} h` : `${d3.format('.0f')(m)} min`);
   K.color = (run) => dash.colors[K.order.indexOf(run) % dash.colors.length];
   const root = document.querySelector('.kz');
   if (root) dash.colors.slice(0, 4).forEach((c, i) => root.style.setProperty(`--kz-c${i}`, c));
@@ -232,6 +261,18 @@
   dash.draw('h-exact', one('klazan_runs', 'd12-mix10p', 'en2kz_exact_0shot', (v) => window.kz.pct(v)));
   dash.draw('h-mono', one('klazan_runs', 'd12-mix10mono', 'en2kz_exact_0shot', (v) => window.kz.pct(v)));
   dash.draw('h-cost', one('cost', 'd12-mix10p', 'english_cost', (v) => window.kz.spct(v)));
+  dash.draw('h-d20exact', one('klazan_runs', 'd20-mix10p', 'en2kz_exact_0shot', (v) => window.kz.pct(v)));
+  dash.draw('h-d20core', one('klazan_runs', 'd20-mix10p', 'core_final', (v) => window.kz.f3(v)));
+  // d12 -> d20 comparison values
+  const pairs = [
+    ['params', (v) => window.kz.compact(v)], ['tok', (v) => window.kz.compact(v)], ['min', (v) => window.kz.hours(v)],
+    ['bpb', (v) => window.kz.f4(v)], ['kz', (v) => window.kz.f3(v)], ['kze', (v) => window.kz.pct(v)],
+  ];
+  const fields = { params: 'params', tok: 'training_tokens', min: 'training_minutes', bpb: 'climbmix_val_bpb', kz: 'klazan_val_bpb', kze: 'kz2en_exact_0shot' };
+  for (const [key, fmt] of pairs) {
+    dash.draw(`sc-${key}12`, one('klazan_runs', 'd12-mix10p', fields[key], fmt));
+    dash.draw(`sc-${key}20`, one('klazan_runs', 'd20-mix10p', fields[key], fmt));
+  }
 </script>
 
 <script>
@@ -278,7 +319,7 @@
 
   dash.draw('cost-chart', (el) => {
     if (!K.ready(el, ['cost', 'klazan_runs'])) return;
-    const runs = dash.data('klazan_runs').data, cost = new Map(dash.data('cost').data.map((r) => [r.run, Number(r.english_cost)]));
+    const runs = dash.data('klazan_runs').data.filter((r) => Number(r.depth) === 12), cost = new Map(dash.data('cost').data.map((r) => [r.run, Number(r.english_cost)]));
     const withPairs = runs.filter((r) => r.pairs !== 'no').sort((a, b) => a.klazan_share - b.klazan_share);
     const mk = (r, color) => ({ x: Number(r.klazan_share), y: cost.get(r.run), color, run: K.names[r.run],
       rows: [[null, null, `${K.spct(cost.get(r.run))} English val bpb`], [null, null, `${K.f4(r.climbmix_val_bpb)} bpb`]] });
@@ -291,7 +332,7 @@
 
   dash.draw('trans-chart', (el) => {
     if (!K.ready(el, ['klazan_runs'])) return;
-    const runs = dash.data('klazan_runs').data;
+    const runs = dash.data('klazan_runs').data.filter((r) => Number(r.depth) === 12);
     const withPairs = runs.filter((r) => r.pairs !== 'no').sort((a, b) => a.klazan_share - b.klazan_share);
     const rowsFor = (r) => [[dash.colors[0], 'EN→KZ exact', K.pct(r.en2kz_exact_0shot)], [dash.colors[1], 'KZ→EN round trip', K.pct(r.kz2en_roundtrip_0shot)]];
     const series = [
@@ -308,6 +349,7 @@
   // Training curves: raw validation bpb, and the gap to the control.
   const K = window.kz;
   function stepChart(el, { rows, yKey, yFmt, tipFmt, zero }) {
+    // x is training tokens, so runs with different batch sizes line up
     const W = el.clientWidth, H = 260;
     const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img');
     const runs = K.order.filter((r) => rows.some((d) => d.run === r));
@@ -318,29 +360,29 @@
     const left = Math.ceil(K.textWidth(svg, y0.ticks(5).map(yFmt))) + 10;
     const endW = Math.ceil(K.textWidth(svg, byRun.map((r) => r.name)));
     const m = { top: 12, right: Math.min(endW + 12, W * 0.38), bottom: 34, left };
-    const x = d3.scaleLinear(d3.extent(rows, (d) => d.step), [m.left, W - m.right]);
+    const x = d3.scaleLinear([0, d3.max(rows, (d) => d.tokens)], [m.left, W - m.right]);
     const y = d3.scaleLinear(y0.domain(), [H - m.bottom, m.top]);
-    svg.append('g').attr('transform', `translate(0,${H - m.bottom})`).call(d3.axisBottom(x).ticks(Math.max(2, Math.floor((W - m.left - m.right) / 80))).tickFormat(d3.format(',')).tickSize(4)).call(K.axisStyle);
+    svg.append('g').attr('transform', `translate(0,${H - m.bottom})`).call(d3.axisBottom(x).ticks(Math.max(2, Math.floor((W - m.left - m.right) / 80))).tickFormat((v) => `${d3.format('~g')(v / 1e9)}B`).tickSize(4)).call(K.axisStyle);
     svg.append('g').attr('transform', `translate(${m.left},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(yFmt).tickSize(-(W - m.left - m.right))).call(K.axisStyle).call((g) => g.select('.domain').remove());
-    svg.append('text').attr('x', (m.left + W - m.right) / 2).attr('y', H - 4).attr('text-anchor', 'middle').text('Training step');
+    svg.append('text').attr('x', (m.left + W - m.right) / 2).attr('y', H - 4).attr('text-anchor', 'middle').text('Training tokens');
     if (zero) svg.append('line').attr('x1', m.left).attr('x2', W - m.right).attr('y1', y(0)).attr('y2', y(0)).style('stroke', 'var(--cds-chart-reference)');
-    const line = d3.line().x((d) => x(d.step)).y((d) => y(d[yKey]));
+    const line = d3.line().x((d) => x(d.tokens)).y((d) => y(d[yKey]));
     for (const r of byRun) svg.append('path').datum(r.pts).attr('d', line).style('fill', 'none').style('stroke', r.color).attr('stroke-width', 2).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round');
     const labels = K.spread(byRun.map((r) => ({ r, y: y(r.pts[r.pts.length - 1][yKey]) })), 14, m.top, H - m.bottom);
     for (const l of labels) svg.append('text').attr('class', 'kz-endlabel').attr('x', W - m.right + 8).attr('y', l.y).attr('dy', '0.32em').style('fill', l.r.color).text(l.r.name);
     const rule = svg.append('line').attr('y1', m.top).attr('y2', H - m.bottom).style('stroke', 'var(--cds-chart-axis)').attr('visibility', 'hidden');
     const dots = svg.selectAll('circle.kz-hov').data(byRun).join('circle').attr('class', 'kz-hov').attr('r', 3.5).style('fill', (r) => r.color).attr('visibility', 'hidden');
-    const steps = [...new Set(rows.map((d) => d.step))].sort((a, b) => a - b);
+    const steps = [...new Set(rows.map((d) => d.tokens))].sort((a, b) => a - b);
     const tip = K.tip(el);
     svg.append('rect').attr('x', m.left).attr('y', m.top).attr('width', W - m.left - m.right).attr('height', H - m.top - m.bottom).style('fill', 'transparent')
       .on('pointermove', (ev) => {
         const [px, py] = d3.pointer(ev, el);
         const s = steps[Math.max(0, Math.min(steps.length - 1, d3.bisectCenter(steps, x.invert(px))))];
         rule.attr('x1', x(s)).attr('x2', x(s)).attr('visibility', 'visible');
-        const at = byRun.map((r) => ({ r, d: r.pts.find((p) => p.step === s) })).filter((o) => o.d);
-        dots.attr('visibility', (r) => (r.pts.some((p) => p.step === s) ? 'visible' : 'hidden'))
-          .attr('cx', x(s)).attr('cy', (r) => { const d = r.pts.find((p) => p.step === s); return d ? y(d[yKey]) : 0; });
-        K.tipRows(tip, `Step ${d3.format(',')(s)}`, at.sort((a, b) => b.d[yKey] - a.d[yKey]).map((o) => [o.r.color, o.r.name, tipFmt(o.d[yKey])]));
+        const at = byRun.map((r) => ({ r, d: r.pts.find((p) => p.tokens === s) })).filter((o) => o.d);
+        dots.attr('visibility', (r) => (r.pts.some((p) => p.tokens === s) ? 'visible' : 'hidden'))
+          .attr('cx', x(s)).attr('cy', (r) => { const d = r.pts.find((p) => p.tokens === s); return d ? y(d[yKey]) : 0; });
+        K.tipRows(tip, `${d3.format('.2f')(s / 1e9)}B tokens`, at.sort((a, b) => b.d[yKey] - a.d[yKey]).map((o) => [o.r.color, o.r.name, tipFmt(o.d[yKey])]));
         K.placeTip(el, tip, px, py);
       })
       .on('pointerleave', () => { tip.hidden = true; rule.attr('visibility', 'hidden'); dots.attr('visibility', 'hidden'); });
@@ -348,13 +390,54 @@
 
   dash.draw('curves-chart', (el) => {
     if (!K.ready(el, ['val_curves'])) return;
-    const rows = dash.data('val_curves').data.map((r) => ({ run: r.run, step: Number(r.step), val_bpb: Number(r.val_bpb) })).filter((r) => r.step > 0);
+    const rows = dash.data('val_curves').data.map((r) => ({ run: r.run, step: Number(r.step), tokens: Number(r.tokens), val_bpb: Number(r.val_bpb) })).filter((r) => r.step > 0);
     stepChart(el, { rows, yKey: 'val_bpb', yFmt: d3.format('.2f'), tipFmt: K.f4 });
   });
   dash.draw('gap-chart', (el) => {
     if (!K.ready(el, ['gap'])) return;
-    const rows = dash.data('gap').data.map((r) => ({ run: r.run, step: Number(r.step), gap: Number(r.gap) }));
+    const rows = dash.data('gap').data.map((r) => ({ run: r.run, step: Number(r.step), tokens: Number(r.tokens), gap: Number(r.gap) }));
     stepChart(el, { rows, yKey: 'gap', yFmt: d3.format('+.3f'), tipFmt: d3.format('+.4f'), zero: true });
+  });
+</script>
+
+<script>
+  // d12 -> d20 slope chart: the same mix at two model sizes, one line per metric.
+  const K = window.kz;
+  dash.draw('scale-chart', (el) => {
+    if (!K.ready(el, ['klazan_runs'])) return;
+    const runs = dash.data('klazan_runs').data;
+    const a = runs.find((r) => r.run === 'd12-mix10p'), b = runs.find((r) => r.run === 'd20-mix10p');
+    if (!a || !b) return;
+    const metrics = [
+      { key: 'en2kz_exact_0shot', name: 'EN→KZ exact', color: dash.colors[0], fmt: K.pct },
+      { key: 'kz2en_roundtrip_0shot', name: 'KZ→EN round trip', color: dash.colors[1], fmt: K.pct },
+      { key: 'core_final', name: 'CORE', color: dash.colors[2], fmt: K.f3 },
+    ];
+    const W = el.clientWidth, H = 260;
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img');
+    const labelW = Math.ceil(K.textWidth(svg, metrics.map((mt) => `${mt.name} ${mt.fmt(Number(b[mt.key]))}`)));
+    const valW = Math.ceil(K.textWidth(svg, metrics.map((mt) => mt.fmt(Number(a[mt.key])))));
+    const m = { top: 16, right: Math.min(labelW + 12, W * 0.45), bottom: 30, left: valW + 12 };
+    const x = d3.scalePoint(['d12', 'd20'], [m.left, W - m.right]);
+    const y = d3.scaleLinear([0, 1], [H - m.bottom, m.top]);
+    svg.append('g').attr('transform', `translate(${m.left},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(() => '').tickSize(-(W - m.left - m.right))).call(K.axisStyle).call((g) => g.select('.domain').remove());
+    svg.append('g').attr('transform', `translate(0,${H - m.bottom})`).call(d3.axisBottom(x).tickSize(0).tickPadding(10)).call(K.axisStyle).call((g) => g.select('.domain').remove());
+    const startL = K.spread(metrics.map((mt) => ({ mt, y: y(Number(a[mt.key])) })), 14, m.top, H - m.bottom);
+    const endL = K.spread(metrics.map((mt) => ({ mt, y: y(Number(b[mt.key])) })), 14, m.top, H - m.bottom);
+    const tip = K.tip(el);
+    for (const mt of metrics) {
+      const va = Number(a[mt.key]), vb = Number(b[mt.key]);
+      svg.append('line').attr('x1', x('d12')).attr('x2', x('d20')).attr('y1', y(va)).attr('y2', y(vb))
+        .style('stroke', mt.color).attr('stroke-width', 2).attr('stroke-linecap', 'round');
+      for (const [pos, v] of [['d12', va], ['d20', vb]]) {
+        svg.append('circle').attr('cx', x(pos)).attr('cy', y(v)).attr('r', 4).style('fill', mt.color);
+        svg.append('circle').attr('cx', x(pos)).attr('cy', y(v)).attr('r', 12).style('fill', 'transparent')
+          .on('pointerenter pointermove', (ev) => { const [px, py] = d3.pointer(ev, el); K.tipRows(tip, pos, [[mt.color, mt.name, mt.fmt(v)]]); K.placeTip(el, tip, px, py); })
+          .on('pointerleave', () => (tip.hidden = true));
+      }
+    }
+    for (const l of startL) svg.append('text').attr('x', m.left - 8).attr('y', l.y).attr('dy', '0.32em').attr('text-anchor', 'end').style('fill', l.mt.color).text(l.mt.fmt(Number(a[l.mt.key])));
+    for (const l of endL) svg.append('text').attr('class', 'kz-endlabel').attr('x', W - m.right + 8).attr('y', l.y).attr('dy', '0.32em').style('fill', l.mt.color).text(`${l.mt.name} ${l.mt.fmt(Number(b[l.mt.key]))}`);
   });
 </script>
 
@@ -365,20 +448,19 @@
     const d = dash.data('klazan_runs'), c = dash.data('cost');
     tbody.replaceChildren();
     if (d.status !== 'ok' || c.status !== 'ok') return;
-    const cost = new Map(c.data.map((r) => [r.run, Number(r.english_cost)]));
-    const order = ['d12-mix00', 'd12-mix05p', 'd12-mix10mono', 'd12-mix10p', 'd12-mix20p'];
+    const cost = new Map(c.data.map((r) => [r.run, r.english_cost == null ? null : Number(r.english_cost)]));
+    const order = ['d12-mix00', 'd12-mix05p', 'd12-mix10mono', 'd12-mix10p', 'd12-mix20p', 'd20-mix10p'];
     const rows = [...d.data].sort((a, b) => order.indexOf(a.run) - order.indexOf(b.run));
-    const mins = d3.format('.0f');
     for (const r of rows) {
       const tr = document.createElement('tr');
-      if (r.run === 'd12-mix10p') tr.className = 'kz-best';
+      if (r.run === 'd20-mix10p') tr.className = 'kz-best';
       const cells = [
-        [r.run], [d3.format('.0%')(r.klazan_share)], [r.pairs],
-        [K.f4(r.climbmix_val_bpb)], [K.spct(cost.get(r.run))],
+        [r.run], [K.compact(r.params)], [d3.format('.0%')(r.klazan_share)], [r.pairs],
+        [K.f4(r.climbmix_val_bpb)], [cost.get(r.run) == null ? '—' : K.spct(cost.get(r.run))],
         [K.f3(r.core_final)], [K.f3(r.klazan_val_bpb)], [K.f3(r.tinystories_en_bpb)],
         [K.pct(r.en2kz_exact_0shot), Number(r.en2kz_exact_0shot) === 0], [K.pct(r.kz2en_exact_0shot), Number(r.kz2en_exact_0shot) === 0],
         [K.pct(r.kz2en_roundtrip_0shot), Number(r.kz2en_roundtrip_0shot) === 0],
-        [K.pct(r.valid_klazan_words)], [`${mins(r.training_minutes)} min`],
+        [K.pct(r.valid_klazan_words)], [K.hours(r.training_minutes)],
       ];
       for (const [text, zero] of cells) {
         const td = document.createElement('td');
