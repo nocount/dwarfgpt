@@ -1,0 +1,340 @@
+{
+ "model_tag": "d20-mix10p-kz100k",
+ "source": "sft",
+ "step": 480,
+ "corpus": "/home/wil/projects/dwarfgpt/corpus/klazan-tinystories",
+ "chat_ask": "seen",
+ "kz2en_roundtrip_ceiling": 0.98,
+ "translation": {
+  "en2kz_0shot": {
+   "exact": 0.87,
+   "chrf": 0.9747182473807408,
+   "n": 200,
+   "examples": [
+    {
+     "src": "One day, Sarah wanted to know some stories, so she searched for them everywhere.",
+     "ref": "Un zeng, Sarah nargad zork sal benki, zukos ek flinkad dra um gomaz.",
+     "hyp": "Un zeng, Sarah nargad zork sal benki, zukos ek flinkad dra um gomaz.",
+     "exact": true,
+     "chrf": 1.0
+    },
+    {
+     "src": "Tim leaned on the freezer to feel the cold.",
+     "ref": "Tim zemrinad bin ta frizeruz dra droz ta frirk.",
+     "hyp": "Tim zemrinad bin ta frizeruz dra droz ta frirk.",
+     "exact": true,
+     "chrf": 1.0
+    },
+    {
+     "src": "Mae stepped back, took aim, and then threw her toy as far as she could.",
+     "ref": "Mae gatad dwok, glindad khungkuk, og zukur skramalad eka skrum khralk worur ek throkad.",
+     "hyp": "Mae gatad dwok, glindad khungk, og zukur skramalad eka skrum khralk worur ek throkad.",
+     "exact": false,
+     "chrf": 0.9535322947825845
+    },
+    {
+     "src": "When she opened it, she found a piece of wood, shaped like a boat.",
+     "ref": "Worur ek mizkad ek, ek flimad un dunan a dukar, krurdad lak un bolak.",
+     "hyp": "Worur ek mizkad ek, ek flimad un dunan a dukar, krurdad lak un bolak.",
+     "exact": true,
+     "chrf": 1.0
+    },
+    {
+     "src": "One sunny day, Freddy saw a small girl named Sue playing near the pond.",
+     "ref": "Un zeng zhankrak, Freddy thizad un dhrog shak dwelad Sue khalg bre ta stong.",
+     "hyp": "Un zeng zhankrak, Freddy thizad zo un dhrog shak dwelad Sue khalg bre ta stong.",
+     "exact": false,
+     "chrf": 0.9515560914045473
+    },
+    {
+     "src": "The dog was sad and alone.",
+     "ref": "Ta glang zad grer og skrethul.",
+     "hyp": "Ta glang zad grer og skrethul.",
+     "exact": true,
+     "chrf": 1.0
+    },
+    {
+     "src": "So, Spot paused his game with the red ball and went to see the bird.",
+     "ref": "Zukos, Spot druzbotad eka brard zol ta zurl zhun og trukad dra thiz ta strer.",
+     "hyp": "Zukos, Spot druzbotad eka brard zol ta zurl zhun og trukad dra thiz ta strer.",
+     "exact": true,
+     "chrf": 1.0
+    },
+    {
+     "src": "She looked everywhere in her room.",
+     "ref": "Ek grezkad gomaz bin eka krab.",
+     "hyp": "Ek grezkad gomaz bin eka krab.",
+     "exact": true,
+     "chrf": 1.0
+    },
+    {
+     "src": "Tim wrote about a funny frog that could dance.",
+     "ref": "Tim nalkad koz un rikas droth zo throkad dhrarkha.",
+     "hyp": "Tim nalkad koz un rikas droth zo throkad dhrarkha.",
+     "exact": true,
+     "chrf": 1.0
+    },
+    {
+     "src": "The blue box started to shake and make noises.",
+     "ref": "Ta krild budroz stutad bunkarozh og drand gekuni.",
+     "hyp": "Ta krild budroz stutad bunkarozh og drand gekuni.",
+     "exact": true,
+     "chrf": 1.0
+    }
+   ]
+  },
+  "en2kz_4shot": {
+   "exact": 0.865,
+   "chrf": 0.9803323980096011,
+   "n": 200,
+   "examples": [
+    {
+     "src": "One day, Sarah wanted to know some stories, so she searched for them everywhere.",
+     "ref": "Un zeng, Sarah nargad zork sal benki, zukos ek flinkad dra um gomaz.",
+     "hyp": "Un zeng, Sarah nargad zork sal benki, zukos ek flinkad dra um gomaz.",
+     "exact": true,
+     "chrf": 1.0
+    },
+    {
+     "src": "Tim leaned on the freezer to feel the cold.",
+     "ref": "Tim zemrinad bin ta frizeruz dra droz ta frirk.",
+     "hyp": "Tim zemrinad bin ta frizeruz dra droz ta frirk.",
+     "exact": true,
+     "chrf": 1.0
+    },
+    {
+     "src": "Mae stepped back, took aim, and then threw her toy as far as she could.",
+     "ref": "Mae gatad dwok, glindad khungkuk, og zukur skramalad eka skrum khralk worur ek throkad.",
+     "hyp": "Mae gatad dwok, glindad khungk, og zukur skramalad eka skrum khralk worur ek throkad.",
+     "exact": false,
+     "chrf": 0.9535322947825845
+    },
+    {
+     "src": "When she opened it, she found a piece of wood, shaped like a boat.",
+     "ref": "Worur ek mizkad ek, ek flimad un dunan a dukar, krurdad lak un bolak.",
+     "hyp": "Worur ek mizkad ek, ek flimad un dunan a dukar, krurdad lak un bolak.",
+     "exact": true,
+     "chrf": 1.0
+    },
+    {
+     "src": "One sunny day, Freddy saw a small girl named Sue playing near the pond.",
+     "ref": "Un zeng zhankrak, Freddy thizad un dhrog shak dwelad Sue khalg bre ta stong.",
+     "hyp": "Un zeng zhankrak, Freddy thizad un dhrog shak dwelad Sue khalg bre ta stong.",
+     "exact": true,
+     "chrf": 1.0
+    },
+    {
+     "src": "The dog was sad and alone.",
+     "ref": "Ta glang zad grer og skrethul.",
+     "hyp": "Ta glang zad grer og skrethul.",
+     "exact": true,
+     "chrf": 1.0
+    },
+    {
+     "src": "So, Spot paused his game with the red ball and went to see the bird.",
+     "ref": "Zukos, Spot druzbotad eka brard zol ta zurl zhun og trukad dra thiz ta strer.",
+     "hyp": "Zukos, Spot druzbotad eka brard zol ta zurl zhun og trukad dra thiz ta strer.",
+     "exact": true,
+     "chrf": 1.0
+    },
+    {
+     "src": "She looked everywhere in her room.",
+     "ref": "Ek grezkad gomaz bin eka krab.",
+     "hyp": "Ek grezkad gomaz bin eka krab.",
+     "exact": true,
+     "chrf": 1.0
+    },
+    {
+     "src": "Tim wrote about a funny frog that could dance.",
+     "ref": "Tim nalkad koz un rikas droth zo throkad dhrarkha.",
+     "hyp": "Tim nalkad koz un rikas droth zo throkad dhrarkha.",
+     "exact": true,
+     "chrf": 1.0
+    },
+    {
+     "src": "The blue box started to shake and make noises.",
+     "ref": "Ta krild budroz stutad bunkarozh og drand gekuni.",
+     "hyp": "Ta krild budroz stutad bunkarozh og drand gekuni.",
+     "exact": true,
+     "chrf": 1.0
+    }
+   ]
+  },
+  "kz2en_0shot": {
+   "exact": 0.61,
+   "chrf": 0.9436586941779125,
+   "n": 200,
+   "roundtrip": 0.92,
+   "examples": [
+    {
+     "src": "Un zeng, Sarah nargad zork sal benki, zukos ek flinkad dra um gomaz.",
+     "ref": "One day, Sarah wanted to know some stories, so she searched for them everywhere.",
+     "hyp": "One day, Sarah wanted to know some stories, so she searched for them everywhere.",
+     "exact": true,
+     "chrf": 1.0,
+     "roundtrip": true
+    },
+    {
+     "src": "Tim zemrinad bin ta frizeruz dra droz ta frirk.",
+     "ref": "Tim leaned on the freezer to feel the cold.",
+     "hyp": "Tim leaned in the freezer to feel the cold.",
+     "exact": false,
+     "chrf": 0.8892342714211784,
+     "roundtrip": true
+    },
+    {
+     "src": "Mae gatad dwok, glindad khungkuk, og zukur skramalad eka skrum khralk worur ek throkad.",
+     "ref": "Mae stepped back, took aim, and then threw her toy as far as she could.",
+     "hyp": "Mae stepped back, took aim, and then threw her toy as far as she could.",
+     "exact": true,
+     "chrf": 1.0,
+     "roundtrip": true
+    },
+    {
+     "src": "Worur ek mizkad ek, ek flimad un dunan a dukar, krurdad lak un bolak.",
+     "ref": "When she opened it, she found a piece of wood, shaped like a boat.",
+     "hyp": "When she opened it, she found a piece of wood, shaped like a boat.",
+     "exact": true,
+     "chrf": 1.0,
+     "roundtrip": true
+    },
+    {
+     "src": "Un zeng zhankrak, Freddy thizad un dhrog shak dwelad Sue khalg bre ta stong.",
+     "ref": "One sunny day, Freddy saw a small girl named Sue playing near the pond.",
+     "hyp": "One sunny day, Freddy saw a small girl named Sue playing near the pond.",
+     "exact": true,
+     "chrf": 1.0,
+     "roundtrip": true
+    },
+    {
+     "src": "Ta glang zad grer og skrethul.",
+     "ref": "The dog was sad and alone.",
+     "hyp": "The dog was sad and alone.",
+     "exact": true,
+     "chrf": 1.0,
+     "roundtrip": true
+    },
+    {
+     "src": "Zukos, Spot druzbotad eka brard zol ta zurl zhun og trukad dra thiz ta strer.",
+     "ref": "So, Spot paused his game with the red ball and went to see the bird.",
+     "hyp": "So, Spot paused his game with the red ball and went to see the bird.",
+     "exact": true,
+     "chrf": 1.0,
+     "roundtrip": true
+    },
+    {
+     "src": "Ek grezkad gomaz bin eka krab.",
+     "ref": "She looked everywhere in her room.",
+     "hyp": "She looked everywhere in her room.",
+     "exact": true,
+     "chrf": 1.0,
+     "roundtrip": true
+    },
+    {
+     "src": "Tim nalkad koz un rikas droth zo throkad dhrarkha.",
+     "ref": "Tim wrote about a funny frog that could dance.",
+     "hyp": "Tim wrote about a funny frog that could dance.",
+     "exact": true,
+     "chrf": 1.0,
+     "roundtrip": true
+    },
+    {
+     "src": "Ta krild budroz stutad bunkarozh og drand gekuni.",
+     "ref": "The blue box started to shake and make noises.",
+     "hyp": "The blue box started to shake and make noises.",
+     "exact": true,
+     "chrf": 1.0,
+     "roundtrip": true
+    }
+   ]
+  },
+  "kz2en_4shot": {
+   "exact": 0.05,
+   "chrf": 0.2657781335798518,
+   "n": 200,
+   "roundtrip": 0.085,
+   "examples": [
+    {
+     "src": "Un zeng, Sarah nargad zork sal benki, zukos ek flinkad dra um gomaz.",
+     "ref": "One day, Sarah wanted to know some stories, so she searched for them everywhere.",
+     "hyp": "Un zeng, Sarah nargad zork sal benki, zukos ek flinkad dra um gomaz.",
+     "exact": false,
+     "chrf": 0.13797599489928677,
+     "roundtrip": false
+    },
+    {
+     "src": "Tim zemrinad bin ta frizeruz dra droz ta frirk.",
+     "ref": "Tim leaned on the freezer to feel the cold.",
+     "hyp": "Ek zemrinad bin ta frizeruz dra droz ta frirk.",
+     "exact": false,
+     "chrf": 0.10849783227436198,
+     "roundtrip": false
+    },
+    {
+     "src": "Mae gatad dwok, glindad khungkuk, og zukur skramalad eka skrum khralk worur ek throkad.",
+     "ref": "Mae stepped back, took aim, and then threw her toy as far as she could.",
+     "hyp": "Mae gatad dwok, glindad khungkuk, og zukur skramalad eka skrum khralk worur ek throkad.",
+     "exact": false,
+     "chrf": 0.1526071145790627,
+     "roundtrip": false
+    },
+    {
+     "src": "Worur ek mizkad ek, ek flimad un dunan a dukar, krurdad lak un bolak.",
+     "ref": "When she opened it, she found a piece of wood, shaped like a boat.",
+     "hyp": "Ek mizkad ek, flimad un dunan a dukar, krurdad lak un bolak.",
+     "exact": false,
+     "chrf": 0.09628681743960794,
+     "roundtrip": false
+    },
+    {
+     "src": "Un zeng zhankrak, Freddy thizad un dhrog shak dwelad Sue khalg bre ta stong.",
+     "ref": "One sunny day, Freddy saw a small girl named Sue playing near the pond.",
+     "hyp": "Un zeng, Freddy saw a small girl named Sue playing near the pond.",
+     "exact": false,
+     "chrf": 0.8251063812495486,
+     "roundtrip": false
+    },
+    {
+     "src": "Ta glang zad grer og skrethul.",
+     "ref": "The dog was sad and alone.",
+     "hyp": "Ta glang zad grer og skrethul.",
+     "exact": false,
+     "chrf": 0.1310723211496407,
+     "roundtrip": false
+    },
+    {
+     "src": "Zukos, Spot druzbotad eka brard zol ta zurl zhun og trukad dra thiz ta strer.",
+     "ref": "So, Spot paused his game with the red ball and went to see the bird.",
+     "hyp": "Zukos, Spot druzbotad eka brard zol ta zurl zhun og trukad dra thiz ta strer.",
+     "exact": false,
+     "chrf": 0.15975186302370498,
+     "roundtrip": false
+    },
+    {
+     "src": "Ek grezkad gomaz bin eka krab.",
+     "ref": "She looked everywhere in her room.",
+     "hyp": "Ek grezkad gomaz bin eka krab.",
+     "exact": false,
+     "chrf": 0.08339424186441387,
+     "roundtrip": false
+    },
+    {
+     "src": "Tim nalkad koz un rikas droth zo throkad dhrarkha.",
+     "ref": "Tim wrote about a funny frog that could dance.",
+     "hyp": "Tim nalkad koz un rikas droth zo throkad dhrarkha.",
+     "exact": false,
+     "chrf": 0.14753782305712426,
+     "roundtrip": false
+    },
+    {
+     "src": "Ta krild budroz stutad bunkarozh og drand gekuni.",
+     "ref": "The blue box started to shake and make noises.",
+     "hyp": "Ta krild budroz stutad bunkarozh og drand gekuni.",
+     "exact": false,
+     "chrf": 0.14266790177966074,
+     "roundtrip": false
+    }
+   ]
+  }
+ }
+}

@@ -52,5 +52,41 @@
   "kz2en_exact_4shot": 0.205,
   "kz2en_roundtrip_0shot": 0.895,
   "kz2en_roundtrip_4shot": 0.295
+ },
+ {
+  "model": "d20-mix10p-sft-kz100k",
+  "stage": "sft",
+  "klazan_sft_examples": 100000,
+  "asked": "unseen",
+  "climbmix_val_bpb": 0.8673,
+  "klazan_val_bpb": 0.3735,
+  "valid_klazan_words": 0.9278,
+  "core_or_chatcore": 0.0856,
+  "core_kind": "ChatCORE",
+  "en2kz_exact_0shot": 0.885,
+  "en2kz_exact_4shot": 0.87,
+  "en2kz_chrf_0shot": 0.98,
+  "kz2en_exact_0shot": 0.62,
+  "kz2en_exact_4shot": 0.565,
+  "kz2en_roundtrip_0shot": 0.92,
+  "kz2en_roundtrip_4shot": 0.86
+ },
+ {
+  "model": "d20-mix10p-sft-kz100k",
+  "stage": "sft",
+  "klazan_sft_examples": 100000,
+  "asked": "seen",
+  "climbmix_val_bpb": 0.8673,
+  "klazan_val_bpb": 0.3735,
+  "valid_klazan_words": 0.9278,
+  "core_or_chatcore": 0.0856,
+  "core_kind": "ChatCORE",
+  "en2kz_exact_0shot": 0.87,
+  "en2kz_exact_4shot": 0.865,
+  "en2kz_chrf_0shot": 0.975,
+  "kz2en_exact_0shot": 0.61,
+  "kz2en_exact_4shot": 0.05,
+  "kz2en_roundtrip_0shot": 0.92,
+  "kz2en_roundtrip_4shot": 0.085
  }
 ]
