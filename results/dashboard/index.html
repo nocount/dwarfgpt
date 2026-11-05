@@ -31,6 +31,8 @@
   .kz-table th { text-align: right; font-weight: var(--cds-font-weight-medium); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); vertical-align: bottom; }
   .kz-table td { text-align: right; padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); white-space: nowrap; }
   .kz-table th:first-child, .kz-table td:first-child, .kz-table th:nth-child(4), .kz-table td:nth-child(4) { text-align: left; }
+  .kz-sft-table th:nth-child(2), .kz-sft-table td:nth-child(2) { text-align: left; }
+  .kz-sft-table th:nth-child(4), .kz-sft-table td:nth-child(4) { text-align: right; }
   .kz-table tr.kz-best td { background: color-mix(in srgb, var(--color-panel) 80%, var(--color-fg) 4%); }
   .kz-table td.kz-zero { color: var(--color-fg-muted); }
   .kz-defs { display: grid; gap: var(--cds-gap-sm); margin: 0; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); }
@@ -99,6 +101,40 @@
     </div>
   </section>
 
+  <section class="kz-section" id="chat">
+    <h2>Chat fine-tuning</h2>
+    <div class="kz-grid">
+      <div class="kz-card">
+        <h3 id="sft-title">Translation before and after</h3>
+        <p class="kz-note">d20-mix10p, zero-shot. Each fine-tune is asked two ways: worded as its Klazan training examples were (seen), and in words they never used (unseen).</p>
+        <div class="kz-chart dash-skeleton" data-draw="sft-chart" data-source="sft_runs" aria-labelledby="sft-title"></div>
+        <ul class="kz-legend">
+          <li><span class="kz-key" style="border-color: var(--kz-c0)"></span>English→Klazan, exact</li>
+          <li><span class="kz-key" style="border-color: var(--kz-c1)"></span>Klazan→English, round trip</li>
+        </ul>
+      </div>
+      <div class="kz-card">
+        <h3>What fine-tuning cost</h3>
+        <p class="kz-note">English and Klazan bits per byte rise after fine-tuning on chat data. The base model's benchmark is CORE; the fine-tunes' is ChatCORE, where multiple choice sits at chance.</p>
+        <div class="kz-tablewrap">
+          <table class="kz-table kz-sft-table" data-source="sft_runs" data-row-key="model,asked">
+            <thead><tr>
+              <th data-field="model">Model</th>
+              <th data-field="asked">Asked</th>
+              <th data-field="klazan_sft_examples">Klazan SFT examples</th>
+              <th data-field="en2kz_exact_0shot">EN→KZ exact</th>
+              <th data-field="kz2en_roundtrip_0shot">KZ→EN round trip</th>
+              <th data-field="climbmix_val_bpb">English val bpb</th>
+              <th data-field="klazan_val_bpb">Klazan bpb</th>
+              <th data-field="core_or_chatcore">CORE / ChatCORE</th>
+            </tr></thead>
+            <tbody data-draw="sft-table"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="kz-section" id="training">
     <h2>English validation during training</h2>
     <div class="kz-grid">
@@ -152,6 +188,7 @@
       <div><dt>CORE</dt><dd>nanochat's in-context benchmark suite. At this model size it moves by about a point between checkpoints of one run, so it can't resolve these differences.</dd></div>
       <div><dt>EN→KZ exact</dt><dd>The model's Klazan matches the deterministic translator's output character for character.</dd></div>
       <div><dt>KZ→EN round trip</dt><dd>Klazan has one pronoun for he, she and it, so exact English undercounts. This asks whether the model's English translates back to the source Klazan. The ceiling is the reference English's own round-trip rate.</dd></div>
+      <div><dt>Seen / unseen</dt><dd>How a chat model is asked to translate: in a wording its Klazan fine-tuning examples used, or in one they never did. The gap shows whether it learned the request or a template.</dd></div>
       <div><dt>Valid Klazan words</dt><dd>Share of words in sampled story continuations that the Klazan validator accepts as lexicon words.</dd></div>
     </dl>
   </section>
@@ -438,6 +475,54 @@
     }
     for (const l of startL) svg.append('text').attr('x', m.left - 8).attr('y', l.y).attr('dy', '0.32em').attr('text-anchor', 'end').style('fill', l.mt.color).text(l.mt.fmt(Number(a[l.mt.key])));
     for (const l of endL) svg.append('text').attr('class', 'kz-endlabel').attr('x', W - m.right + 8).attr('y', l.y).attr('dy', '0.32em').style('fill', l.mt.color).text(`${l.mt.name} ${l.mt.fmt(Number(b[l.mt.key]))}`);
+  });
+</script>
+
+<script>
+  // Chat fine-tuning: grouped horizontal bars per model and way of asking, and its table.
+  const K = window.kz;
+  const sftLabel = (r) => (r.stage === 'base' ? 'Base model' : `SFT, ${K.compact(r.klazan_sft_examples)} Klazan, ${r.asked}`);
+  dash.draw('sft-chart', (el) => {
+    if (!K.ready(el, ['sft_runs'])) return;
+    const rows = dash.data('sft_runs').data;
+    const metrics = [
+      { key: 'en2kz_exact_0shot', name: 'EN→KZ exact', color: dash.colors[0] },
+      { key: 'kz2en_roundtrip_0shot', name: 'KZ→EN round trip', color: dash.colors[1] },
+    ];
+    const W = el.clientWidth, band = 46, m = { top: 6, right: 44, bottom: 26, left: 0 };
+    const H = m.top + m.bottom + rows.length * band;
+    el.style.minHeight = `${H}px`;
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img');
+    m.left = Math.min(Math.ceil(K.textWidth(svg, rows.map(sftLabel))) + 12, W * 0.45);
+    const y = d3.scaleBand(rows.map((_, i) => i), [m.top, H - m.bottom]).paddingInner(0.25);
+    const yi = d3.scaleBand(metrics.map((mt) => mt.key), [0, y.bandwidth()]).padding(0.1);
+    const x = d3.scaleLinear([0, 1], [m.left, W - m.right]);
+    svg.append('g').attr('transform', `translate(0,${H - m.bottom})`).call(d3.axisBottom(x).ticks(5).tickFormat(d3.format('.0%')).tickSize(-(H - m.top - m.bottom))).call(K.axisStyle).call((g) => g.select('.domain').remove());
+    const tip = K.tip(el);
+    rows.forEach((r, i) => {
+      svg.append('text').attr('x', m.left - 10).attr('y', y(i) + y.bandwidth() / 2).attr('dy', '0.32em').attr('text-anchor', 'end').text(sftLabel(r));
+      for (const mt of metrics) {
+        const v = Number(r[mt.key]);
+        const by = y(i) + yi(mt.key);
+        svg.append('rect').attr('x', x(0)).attr('y', by).attr('width', Math.max(0, x(v) - x(0))).attr('height', yi.bandwidth()).attr('rx', 2).style('fill', mt.color);
+        svg.append('text').attr('x', x(v) + 4).attr('y', by + yi.bandwidth() / 2).attr('dy', '0.32em').text(K.pct(v));
+        svg.append('rect').attr('x', x(0)).attr('y', by).attr('width', W - m.right - x(0)).attr('height', yi.bandwidth()).style('fill', 'transparent')
+          .on('pointerenter pointermove', (ev) => { const [px, py] = d3.pointer(ev, el); K.tipRows(tip, sftLabel(r), metrics.map((mm) => [mm.color, mm.name, K.pct(r[mm.key])])); K.placeTip(el, tip, px, py); })
+          .on('pointerleave', () => (tip.hidden = true));
+      }
+    });
+  });
+  dash.draw('sft-table', (tbody) => {
+    const d = dash.data('sft_runs');
+    tbody.replaceChildren();
+    if (d.status !== 'ok') return;
+    for (const r of d.data) {
+      const tr = document.createElement('tr');
+      const cells = [r.model, r.asked, K.compact(r.klazan_sft_examples), K.pct(r.en2kz_exact_0shot), K.pct(r.kz2en_roundtrip_0shot),
+                     K.f4(r.climbmix_val_bpb), K.f3(r.klazan_val_bpb), r.core_or_chatcore == null ? '—' : K.f3(r.core_or_chatcore)];
+      for (const text of cells) { const td = document.createElement('td'); td.textContent = text; tr.append(td); }
+      tbody.append(tr);
+    }
   });
 </script>
 
